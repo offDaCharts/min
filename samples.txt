@@ -1,0 +1,14 @@
+#num
+#a=3
+#b=4
+$str="a is greater"
+$str1="b" " is greater"
+
+Bbool=T
+
+?a>b
+    Pstr
+:
+    Pstr1
+
+P"Hello World"
