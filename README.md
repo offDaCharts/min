@@ -49,6 +49,7 @@ if (a < b) {
 declarations -> variableDec |  
                 functionDec |  
                 clasDec  
+                
 variableDec ->  (type)(identifier)(=literal)? |  
                 (type)(identifier'['']')(='['((literal,)*literal)?']')? |  
                 _identifier'('')'  
@@ -56,6 +57,7 @@ variableDec ->  (type)(identifier)(=literal)? |
 statements -> literal |  
               declaration |   
               expression |  
+              
 expressions -> exp([|&]exp)?  
 exp -> exp1((~|~>|<~|<|>)exp1)?  
 exp1 -> exp2(!)?  
@@ -65,7 +67,8 @@ exp4 -> exp5([*/]exp5)?
 exp5 -> numeric_literal  
 
 
-blocks -> (\s{4}\*)statement(((1)statement)\*)?  //pythonic dynamic whitespacing  
+blocks -> 
+(\s{4}\*)statement(((1)statement)\*)?  //pythonic dynamic whitespacing  
 
 
 
@@ -78,12 +81,17 @@ keysymbol -> ? |     //if
             :? |    //else if  
             _ |     //function 
             ; |     //class
-            ` |     //return  
+            ` |     //return 
+            
 identifier -> ^[a-zA-z0-9]{1,9}$  
+
 literal -> string_literal |
            numeric_literal
+           
 string_literal -> '"' (\w | \" | \n | \\ | \u[0-9A-F]{4})* '"'  
+
 numberic_literal -> \d*.\d*  
+
 operator -> * |  
              ^ |  
              - |  
@@ -92,15 +100,18 @@ operator -> * |
              ! |
              & |
              | |
-             \s |
-             < |
-             > |
-             ~ |
-             <~ |
-             >~ |
-             '
-type -> # |
-        $ |
+             \s |  
+             < |  
+             > |  
+             ~ |  
+             <~ |  
+             >~ |  
+             '  
+             
+type -> # |  
+        $ |  
+        #[] |
+        $[]
 comment -> (comments are a waste of space and have no place in min!)  
 
 
