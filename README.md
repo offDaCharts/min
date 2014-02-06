@@ -13,6 +13,7 @@ Min is a minimal programming language where most key words and symbols are one s
 
 ###Examples:
 
+```
 //min and java             
 $str="hello" "world"      
 String str = "hello" + "world";  
@@ -114,7 +115,7 @@ type -> # |
         $[]
         
 comment -> (comments are a waste of space and have no place in min!)  
-
+```
 
 
 
