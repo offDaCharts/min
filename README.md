@@ -20,9 +20,9 @@ String str = "hello" + "world";
 //non leading white spaces are string concatenation 
 //so white spaces cannot be in the middle of statements unless for concatenation  
 
-\#num=3                    
+#num=3                    
 double num = 3;  
-\#n=2,n=4                  
+#n=2,n=4                  
 double n = 2, n = 4;  
 
 
@@ -72,7 +72,7 @@ exp5 -> numeric_literal |
 
 
 blocks -> 
-(\s{4}\*)statement(((1)statement)\*)?  //pythonic dynamic whitespacing  
+(\s{4}*)statement(((1)statement)*)?  //pythonic dynamic whitespacing  
 ```
 
 
