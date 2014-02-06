@@ -43,10 +43,11 @@ if (a < b) {
 } else  
     System.out.println("the world" + " does not exist");  
 }  
-
+```
  
 ###Macro Syntax:
 
+```
 declarations -> variableDec |  
                 functionDec |  
                 clasDec  
@@ -70,11 +71,11 @@ exp5 -> numeric_literal
 
 blocks -> 
 (\s{4}\*)statement(((1)statement)\*)?  //pythonic dynamic whitespacing  
-
+```
 
 
 ###Micro Syntax:  
-
+```
 keysymbol -> ? |     //if  
             : |     //else  
             % |     //for
