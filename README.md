@@ -1,12 +1,12 @@
 min
-
-Picture: -
-(This is not a placeholder for a picture to come. This picture best describes the language)
 ===
+
+Picture: -  
+    (This is not a placeholder for a picture to come. This picture best describes the language)  
 
 Minimal prog lang
 
-###What is it?
+###What is it?  
 
 Min is a minimal programming language where most key words and symbols are one symbol. It is statically typed. Programs in min are automatically minified so as to use very little memory. If you want something readable, min is not for you, try manatee instead.
 
@@ -51,13 +51,13 @@ variableDec ->  (type)(identifier)(=literal)? |
 statements -> literal |  
               declaration |   
               expression |  
-expressions -> exp([|&]exp)?
-exp -> exp1((~|~>|<~|<|>)exp1)?
-exp1 -> exp2(!)?
-exp2 -> exp3(^exp3)?
-exp3 -> exp4([+-]exp4)
-exp4 -> exp5([*/]exp5)?
-exp5 -> numeric_literal
+expressions -> exp([|&]exp)?  
+exp -> exp1((~|~>|<~|<|>)exp1)?  
+exp1 -> exp2(!)?  
+exp2 -> exp3(^exp3)?  
+exp3 -> exp4([+-]exp4)  
+exp4 -> exp5([*/]exp5)?  
+exp5 -> numeric_literal  
 
 
 blocks -> (\s{4}\*)statement(((1)statement)\*)?  //pythonic dynamic whitespacing  
