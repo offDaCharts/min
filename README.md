@@ -13,11 +13,16 @@ Min is a minimal programming language where most key words and symbols are one s
 
 ###Examples:
 
-//min                     //java  
-$str="hello" "world"      String str = "hello" + "world";  
+//min and java             
+$str="hello" "world"      
+String str = "hello" + "world";  
 //non leading white spaces are string concatenation so white spaces cannot be in the middle of statements unless for concatenation  
-\#num=3                    double num = 3;  
-\#n=2,n=4                  double n = 2, n = 4;  
+
+\#num=3                    
+double num = 3;  
+\#n=2,n=4                  
+double n = 2, n = 4;  
+
 
 //min  
 //Why have 2 different ways for if statements, the ? : is used for all is statements  
