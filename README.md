@@ -17,7 +17,8 @@ Min is a minimal programming language where most key words and symbols are one s
 //min and java             
 $str="hello" "world"      
 String str = "hello" + "world";  
-//non leading white spaces are string concatenation so white spaces cannot be in the middle of statements unless for concatenation  
+//non leading white spaces are string concatenation 
+//so white spaces cannot be in the middle of statements unless for concatenation  
 
 \#num=3                    
 double num = 3;  
@@ -66,7 +67,8 @@ exp1 -> exp2(!)?
 exp2 -> exp3(^exp3)?  
 exp3 -> exp4([+-]exp4)  
 exp4 -> exp5([*/]exp5)?  
-exp5 -> numeric_literal  
+exp5 -> numeric_literal |
+        identifier
 
 
 blocks -> 
