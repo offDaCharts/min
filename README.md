@@ -1,10 +1,10 @@
 min
 ===
 
+Minimal prog lang
+
 Picture: -  
     (This is not a placeholder for a picture to come. This picture best describes the language)  
-
-Minimal prog lang
 
 ###What is it?  
 
