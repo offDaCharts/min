@@ -1,0 +1,14 @@
+{
+  "name": "min-compiler",
+  "version": "0.0.1",
+  "description": "a simple compiler for the min programming language",
+  "dependencies": {
+    "byline": "latest",
+    "hashmap": "latest",
+    "optimist": "latest"
+  },
+  "devDependencies": {
+    "mocha": "latest",
+    "should": "latest"
+  }
+}

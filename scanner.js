@@ -8,15 +8,14 @@
 
 var fs = require('fs')
 var byline = require('byline')
-//TODO: error function when error is found
-//var error = require('./error')
+var error = require('./error')
 
 module.exports = function (filename, callback) {
     var baseStream = fs.createReadStream(filename, {encoding: 'utf8'}),
-        //TODO error: baseStream.on('error', function (err) {error(err)})
         stream = byline(baseStream, {keepEmptyLines: true}),
         tokens = [],
         linenumber = 0
+    baseStream.on('error', function (err) {error(err)})
 
     stream.on('readable', function () {
         scan(stream.read(), ++linenumber, tokens)
@@ -40,30 +39,33 @@ function scan(line, linenumber, tokens) {
     while (true) {
         start = pos
 
-        if (/\s{4}/.test(line.substring(pos, pos+4)) {
+        // Nothing on the line
+        if (pos >= line.length) break
+        
+        if (/\s{4}/.test(line.substring(pos, pos+4))) {
             emit("tab", "    ")
             pos += 4
-        }
-
+        
         // Two-character tokens
-        if (/<~|>~|'=/.test(line.substring(pos, pos+2))) {
+        } else if (/<~|>~|'=/.test(line.substring(pos, pos+2))) {
             emit(line.substring(pos, pos+2))
             pos += 2
 
 
         // One-char declarators [#$_;]
-        // One-char operator [*^\-+\/!&|\s<>]
+        // One-char operator [*^\-+\/!&|\s<>=]
         // Reserved chars [?:%@`]
-        } else if (/[#$_;*\^\-+\/!&|\s<>?:%@`]/.test(line[pos])) {
+        } else if (/[#$_;*\^\-+\/!&|\s<>=?:%@`]/.test(line[pos])) {
             emit(line[pos++])
 
         // String literals 
         } else if (/"/.test(line[pos])) {
+            pos++
             while (/[^"]/.test(line[pos]) && pos < line.length) pos++
-            if (/"/.test(line[++pos]))
+            if (/"/.test(line[pos++]))
                 emit("STRLIT", line.substring(start, pos))
             else {
-                //Error call TODO
+                error('Expected ": ' + line[pos], {line: linenumber, col: pos})
             }
 
         // Numeric literals
@@ -77,7 +79,7 @@ function scan(line, linenumber, tokens) {
 
         // Identifiers
         } else if (/[A-Za-z]/.test(line[pos])) {
-            while (/[^#$_;*\^\-+\/!&|\s<>?:%@`]/.test(line[pos]) && pos < line.length) pos++
+            while (/[^#$_;*\^\-+\/!&|\s<>?:%@=`]/.test(line[pos]) && pos < line.length) pos++
             emit("ID", line.substring(start, pos))
         
         } else {

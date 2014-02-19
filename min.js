@@ -14,10 +14,10 @@ var scan = require('./scanner')
 // TODO
 // var parse = require('./parser')
 // var generate = require('./generator')(argv.target)
-// var error = require('./error')
+var error = require('./error')
 
 scan(argv._[0], function (tokens) {
-  //if (error.count > 0) return;
+  if (error.count > 0) return;
   if (argv.t) {
     tokens.forEach(function (t) {console.log(t)})
     return
