@@ -64,7 +64,7 @@ describe('The scanner', function () {
 
   it('recognizes all reserved characters', function (done) {
     scan('test/data/symbols/reservedCharacters.min', function (tokens) {
-      tokens.length.should.equal(30)
+      tokens.length.should.equal(31)
       i(tokens[0]).should.equal(i({ kind: '#', lexeme: '#', line: 1, col: 1 }))
       i(tokens[1]).should.equal(i({ kind: '$', lexeme: '$', line: 1, col: 2 }))
       i(tokens[2]).should.equal(i({ kind: '_', lexeme: '_', line: 1, col: 3 }))
@@ -94,7 +94,8 @@ describe('The scanner', function () {
       i(tokens[26]).should.equal(i({ kind: '{', lexeme: '{', line: 1, col: 27 }))
       i(tokens[27]).should.equal(i({ kind: '}', lexeme: '}', line: 1, col: 28 }))
       i(tokens[28]).should.equal(i({ kind: '~', lexeme: '~', line: 1, col: 29 }))
-      i(tokens[29]).should.equal(i({kind:'EOF',lexeme:'EOF'}))
+      i(tokens[29]).should.equal(i({ kind: '\'', lexeme: '\'', line: 1, col: 30 }))
+      i(tokens[30]).should.equal(i({kind:'EOF',lexeme:'EOF'}))
       done()
     })
   })

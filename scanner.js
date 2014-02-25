@@ -82,7 +82,7 @@ function scan(line, linenumber, tokens, indentStack) {
         // One-char declarators [#$_;]
         // One-char operator [*^\-+\/!&|\s<>=]
         // Reserved chars [?:%@`]
-        } else if (/[#$_;*\^\-+\/!&|\s<>=?:%@\`,()\[\]\{\}~]/.test(line[pos])) {
+        } else if (/[#$_;*\^\-+\/!&|\s<>=?:%@\`,()\[\]\{\}~\']/.test(line[pos])) {
             emit(line[pos++])
 
         // String literals 
