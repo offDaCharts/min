@@ -24,6 +24,7 @@ $str="hello" "world"                                        var str = "hello" + 
   
 
 #Number declarations
+There is only one number type: #
 ```
 Min:                                                        Javascript:
 #num=3                                                      var num = 3
@@ -38,6 +39,16 @@ _add2(num)                                                  function add2(num) {
                                                             }
 ```
 
+#Classes
+Classes are declared with the names of the fields that will be part of the class and can be contructed with the name of the class. When classes are created, the name of the class is seperated by a :
+```
+Min:                                                       
+;box                                                        
+    #width
+    #height
+              
+box:b=box(2,3)                                        
+```
 
 
 #Conditionals
@@ -55,6 +66,14 @@ Min:                                                        Javascript:
 ``` 
 
 
+#Loops
+```
+Min:                                                        Javascript:
+%#i=0,i<5,i+=1                                              for(var i = 0; i < 5; i++) {
+    `"hello 5 times"                                             console.log("hello 5 times"); 
+                                                            }
+``` 
+
  
 ###Macro Syntax:
 
@@ -69,7 +88,7 @@ variableDec ->  (type)(identifier)(=literal)? |
                 
 functionDec -> _identifier\((identifier,)*identifier\) block
 
-classDec -> _identifier\((identifier,)*identifier\) block
+classDec -> ;identifier block
                 
 statements -> literal |  
               declaration |   
@@ -100,7 +119,7 @@ keysymbol -> ? |     //if
             ; |     //class
             ` |     //return 
             
-identifier -> ^[a-zA-z0-9]{1,9}$  
+identifier -> [a-zA-Z][a-zA-Z0-9]*  
 
 literal -> string_literal |
            numeric_literal
