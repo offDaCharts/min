@@ -6,12 +6,12 @@ Minimal prog lang
 Picture: -  
     (This is not a placeholder for a picture to come. This picture best describes the language)  
 
-###What is it?  
+#What is it?  
 
 Min is a minimal programming language where most key words and symbols are one symbol. It is statically typed. Programs in min are automatically minified so as to use very little memory. If you want something readable, min is not for you, try manatee instead.
 
 
-###Examples:
+#Examples:
 
 #Hello World
 Non leading white spaces are string concatenation 
@@ -23,15 +23,15 @@ $str="hello" "world"                                        var str = "hello" + 
 ```
   
 
-#Number declarations
-There is only one number type: #
+###Number declarations
+There is only one number type: \#
 ```
 Min:                                                        Javascript:
 #num=3                                                      var num = 3
 #n=2,n=4                                                    var n = 2, n = 4 
 ```
 
-#Functions
+###Functions
 ```
 Min:                                                        Javascript:
 _add2(num)                                                  function add2(num) {
@@ -39,7 +39,7 @@ _add2(num)                                                  function add2(num) {
                                                             }
 ```
 
-#Classes
+###Classes
 Classes are declared with the names of the fields that will be part of the class and can be contructed with the name of the class. When classes are created, the name of the class is seperated by a :
 ```
 Min:                                                       
@@ -51,7 +51,7 @@ box:b=box(2,3)
 ```
 
 
-#Conditionals
+###Conditionals
 Why have 2 different ways for if statements? In min, the ? : is used for all is statements  
 Also, dynamic whitespacing is used for blocks instead of braces
 ```
@@ -66,7 +66,7 @@ Min:                                                        Javascript:
 ``` 
 
 
-#Loops
+###Loops
 ```
 Min:                                                        Javascript:
 %#i=0,i<5,i+=1                                              for(var i = 0; i < 5; i++) {
@@ -74,6 +74,7 @@ Min:                                                        Javascript:
                                                             }
 ``` 
 
+#Syntax
  
 ###Macro Syntax:
 
