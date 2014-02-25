@@ -29,11 +29,11 @@ double n = 2, n = 4;
 //min  
 //Why have 2 different ways for if statements, the ? : is used for all is statements  
 ?a>b                      
-    '"hello world" //' is for print  
+    `"hello world" //` is for print  
 :?a~b  
-    '"Googbye world"  
+    `"Googbye world"  
 :  
-    '"the world" " does not exist"  
+    `"the world" " does not exist"  
  
 
 //java  
@@ -110,7 +110,7 @@ operator -> * |
              ~ |  
              <~ |  
              >~ |  
-             '  
+             `  
              
 type -> # |  
         $ |  
