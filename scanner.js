@@ -14,40 +14,66 @@ module.exports = function (filename, callback) {
     var baseStream = fs.createReadStream(filename, {encoding: 'utf8'}),
         stream = byline(baseStream, {keepEmptyLines: true}),
         tokens = [],
-        linenumber = 0
+        linenumber = 0,
+        indentStack = [0]
     baseStream.on('error', function (err) {error(err)})
 
     stream.on('readable', function () {
-        scan(stream.read(), ++linenumber, tokens)
+        scan(stream.read(), ++linenumber, tokens, indentStack)
     })
     stream.once('end', function () {
+        while(indentStack.length > 1) {
+            indentStack.pop()
+            tokens.push({kind: 'DEDENT', lexeme: 'DEDENT'})
+        }
+
         tokens.push({kind: 'EOF', lexeme: 'EOF'})
         callback(tokens)
     })
 }
 
-function scan(line, linenumber, tokens) {
+function scan(line, linenumber, tokens, indentStack) {
     //Skip if empty other than spaces
     if (!line.trim()) return
 
     var start, pos = 0,
         emit = function(kind, lexeme) {
             tokens.push({kind: kind, lexeme: lexeme || kind, line: linenumber, col: start+1})
-        }
+        },
+        numTabs, i
 
     //dynamic whitespacing for indents
     while (true) {
-        start = pos
+        //Check for whitespace indent/dedent at beginning of line
+        if (pos == 0) {
+            while (/\s/.test(line[pos])) pos++
+            numTabs = Math.floor(pos/4)
 
-        // Nothing on the line
+            // Nothing on the line- don't indent and dedent for blank lines
+            if (pos >= line.length) break
+
+            if (numTabs > indentStack[indentStack.length-1]) {
+                if (numTabs > indentStack[indentStack.length-1]+1) {
+                    error('Multiple INDENT tokens in 1 line', {line: linenumber, col: pos+1})
+                } else {
+                    indentStack.push(indentStack[indentStack.length-1])
+                    emit("INDENT", "INDENT")
+                }
+            } else if (numTabs < indentStack[indentStack.length-1]) {
+                while (numTabs < indentStack[indentStack.length-1]) {
+                    indentStack.pop()
+                    emit("DEDENT", "DEDENT")
+                }
+            }
+        }
+
+        // Nothing left on the line
         if (pos >= line.length) break
-        
-        if (/\s{4}/.test(line.substring(pos, pos+4))) {
-            emit("tab", "    ")
-            pos += 4
+
+        start = pos
         
         // Two-character tokens
-        } else if (/<~|>~|'=/.test(line.substring(pos, pos+2))) {
+        if (/<~|>~|'=/.test(line.substring(pos, pos+2))) {
             emit(line.substring(pos, pos+2))
             pos += 2
 
