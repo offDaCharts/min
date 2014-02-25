@@ -46,6 +46,7 @@ function scan(line, linenumber, tokens, indentStack) {
     while (true) {
         //Check for whitespace indent/dedent at beginning of line
         if (pos == 0) {
+            start = pos
             while (/\s/.test(line[pos])) pos++
             numTabs = Math.floor(pos/4)
 
@@ -56,7 +57,7 @@ function scan(line, linenumber, tokens, indentStack) {
                 if (numTabs > indentStack[indentStack.length-1]+1) {
                     error('Multiple INDENT tokens in 1 line', {line: linenumber, col: pos+1})
                 } else {
-                    indentStack.push(indentStack[indentStack.length-1])
+                    indentStack.push(numTabs)
                     emit("INDENT", "INDENT")
                 }
             } else if (numTabs < indentStack[indentStack.length-1]) {
@@ -73,7 +74,7 @@ function scan(line, linenumber, tokens, indentStack) {
         start = pos
         
         // Two-character tokens
-        if (/<~|>~|'=/.test(line.substring(pos, pos+2))) {
+        if (/<~|>~|'~|\+=|-=|\*=|\/=/.test(line.substring(pos, pos+2))) {
             emit(line.substring(pos, pos+2))
             pos += 2
 
@@ -81,7 +82,7 @@ function scan(line, linenumber, tokens, indentStack) {
         // One-char declarators [#$_;]
         // One-char operator [*^\-+\/!&|\s<>=]
         // Reserved chars [?:%@`]
-        } else if (/[#$_;*\^\-+\/!&|\s<>=?:%@`]/.test(line[pos])) {
+        } else if (/[#$_;*\^\-+\/!&|\s<>=?:%@\`,()\[\]\{\}~]/.test(line[pos])) {
             emit(line[pos++])
 
         // String literals 
@@ -97,7 +98,7 @@ function scan(line, linenumber, tokens, indentStack) {
         // Numeric literals
         } else if (/\d/.test(line[pos])) {
             while (/\d/.test(line[pos])) pos++
-            if (/\./.test(line[pos+1])) {
+            if (/\./.test(line[pos])) {
                 pos++
                 while (/\d/.test(line[pos])) pos++
             }
@@ -105,7 +106,7 @@ function scan(line, linenumber, tokens, indentStack) {
 
         // Identifiers
         } else if (/[A-Za-z]/.test(line[pos])) {
-            while (/[^#$_;*\^\-+\/!&|\s<>?:%@=`]/.test(line[pos]) && pos < line.length) pos++
+            while (/[^#$_;*\^\-+\/!&|\s<>?:%@=`,()\[\]\{\}~"']/.test(line[pos]) && pos < line.length) pos++
             emit("ID", line.substring(start, pos))
         
         } else {
