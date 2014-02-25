@@ -79,76 +79,76 @@ Min:                                                        Javascript:
 ###Macro Syntax:
 
 ```
-declarations -> variableDec |  
-                functionDec |  
-                classDec  
+declarations    ->  variableDec |  
+                    functionDec |  
+                    classDec  
                 
-variableDec ->  (type)(identifier)(=literal)? |  
-                (type)(identifier'['']')(='['((literal,)*literal)?']')? |  
-                _identifier'('')'  
+variableDec     ->  (type)(identifier)(=literal)? |  
+                    (type)(identifier'['']')(='['((literal,)*literal)?']')? |  
+                    _identifier'('')'  
                 
-functionDec -> _identifier\((identifier,)*identifier\) block
+functionDec     ->  _identifier\((identifier,)*identifier\) block
 
-classDec -> ;identifier block
+classDec        ->  ;identifier block
                 
-statements -> literal |  
-              declaration |   
-              expression |  
+statements      ->  literal |  
+                    declaration |   
+                    expression |  
               
-expressions -> exp([|&]exp)?  
-exp -> exp1((~|~>|<~|<|>)exp1)?  
-exp1 -> exp2(!)?  
-exp2 -> exp3(^exp3)?  
-exp3 -> exp4([+-]exp4)  
-exp4 -> exp5([*/]exp5)?  
-exp5 -> numeric_literal |
-        identifier
+expressions     ->  exp([|&]exp)?  
+exp             -> exp1((~|~>|<~|<|>)exp1)?  
+exp1            ->  exp2(!)?  
+exp2            ->  exp3(^exp3)?  
+exp3            ->  exp4([+-]exp4)  
+exp4            ->  exp5([*/]exp5)?  
+exp5            ->  numeric_literal |
+                    identifier
 
-block -> 
-(\s{4}*)statement(((1)statement)*)?  //pythonic dynamic whitespacing  
+block           ->  (\s{4}*)statement(((1)statement)*)  //pythonic dynamic whitespacing  
 ```
 
 
 ###Micro Syntax:  
 ```
-keysymbol -> ? |     //if  
-            : |     //else  
-            % |     //for
-            @ |     //while  
-            :? |    //else if  
-            _ |     //function 
-            ; |     //class
-            ` |     //return 
+keysymbol       ->  '?' |     //if  
+                    ':' |     //else  
+                    '%' |     //for
+                    '@' |     //while  
+                    ':?'|    //else if  
+                    '_' |     //function 
+                    ';' |     //class
+                    '`' |     //return 
             
-identifier -> [a-zA-Z][a-zA-Z0-9]*  
+identifier      ->  [a-zA-Z][a-zA-Z0-9]*  
 
-literal -> string_literal |
-           numeric_literal
+literal         ->  string_literal |
+                    numeric_literal
            
-string_literal -> '"' (\w | \" | \n | \\ | \u[0-9A-F]{4})* '"'  
+string_literal  ->  '"' (\w | \" | \n | \\ | \u[0-9A-F]{4})* '"'  
 
-numberic_literal -> \d*.\d*  
+numberic_literal->  \d*.\d*  
 
-operator -> * |  
-             ^ |  
-             - |  
-             + |  
-             / |  
-             ! |
-             & |
-             | |
-             \s |  
-             < |  
-             > |  
-             ~ |  
-             <~ |  
-             >~ |  
-             `  
+operator        ->  '*' |  
+                    '^' |  
+                    '-' |  
+                    '+' |  
+                    '/' |  
+                    '!' |
+                    '&' |
+                    '|' |
+                    '\s'|  
+                    '<' |  
+                    '>' |  
+                    '~' |  
+                    '<~'|  
+                    '>~'|  
+                    '`' |
+                    '''
              
-type -> # |  
-        $ |  
-        #[] |
-        $[]
+type -> '#' |  
+        '$' |  
+        '#[]' |
+        '$[]'
         
 comment -> (comments are a waste of space and have no place in min!)  
 ```
