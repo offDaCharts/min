@@ -14,37 +14,34 @@ Min is a minimal programming language where most key words and symbols are one s
 ###Examples:
 
 ```
-//min and java             
-$str="hello" "world"      
-String str = "hello" + "world";  
-//non leading white spaces are string concatenation 
-//so white spaces cannot be in the middle of statements unless for concatenation  
-
-#num=3                    
-double num = 3;  
-#n=2,n=4                  
-double n = 2, n = 4;  
-
-
-//min  
-//Why have 2 different ways for if statements, the ? : is used for all is statements  
-?a>b                      
-    `"hello world" //` is for print  
-:?a~b  
-    `"Googbye world"  
-:  
-    `"the world" " does not exist"  
- 
-
-//java  
-if (a < b) {  
-    System.out.println("hello world");  
-} else if (a == b) {  
-    System.out.println("Goodbye world");  
-} else  
-    System.out.println("the world" + " does not exist");  
-}  
+Min:                                                        Java:
+$str="hello" "world"                                        String str = "hello" + "world";
+`str                                                        System.out.println(str)
 ```
+Non leading white spaces are string concatenation 
+So white spaces cannot be in the middle of statements unless for concatenation  
+
+Number declarations
+```
+Min:                                                        Java:
+#num=3                                                      double num = 3;  
+#n=2,n=4                                                    double n = 2, n = 4;  
+```
+
+Why have 2 different ways for if statements, the ? : is used for all is statements  
+Also, dynamic whitespacing is used for blocks instead of braces
+```
+Min:                                                        Java:
+?a>b                                                        if (a < b) {  
+    `"hello world"                                          System.out.println("hello world");  
+:?a~b                                                       } else if (a == b) { 
+    `"Googbye world"                                        System.out.println("Goodbye world"); 
+:                                                           } else 
+    `"the world" " does not exist"                          System.out.println("the world" + " does not exist");
+                                                            }
+``` 
+
+
  
 ###Macro Syntax:
 
