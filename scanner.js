@@ -40,9 +40,9 @@ function scan(line, linenumber, tokens, indentStack) {
         emit = function(kind, lexeme) {
             tokens.push({kind: kind, lexeme: lexeme || kind, line: linenumber, col: start+1})
         },
+        loop = false,
         numTabs, i
 
-    //dynamic whitespacing for indents
     while (true) {
         //Check for whitespace indent/dedent at beginning of line
         if (pos == 0) {
@@ -69,7 +69,12 @@ function scan(line, linenumber, tokens, indentStack) {
         }
 
         // Nothing left on the line
-        if (pos >= line.length) break
+        if (pos >= line.length) {
+            start++
+            (loop) ? emit("LOOP") : emit("NEWLINE")
+            loop = false
+            break
+        }
 
         start = pos
         
@@ -83,6 +88,7 @@ function scan(line, linenumber, tokens, indentStack) {
         // One-char operator [*^\-+\/!&|\s<>=]
         // Reserved chars [?:%@`]
         } else if (/[#$_;*\^\-+\/!&|\s<>=?:%@\`,()\[\]\{\}~\']/.test(line[pos])) {
+            if (/[@%]/.test(line[pos])) loop = true
             emit(line[pos++])
 
         // String literals 

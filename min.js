@@ -22,5 +22,8 @@ scan(argv._[0], function (tokens) {
     tokens.forEach(function (t) {console.log(t)})
     return
   }
-  //TODO add parser and generator
+  //var program = parse(tokens)
+  //if (error.count > 0) return;
+  //TODO generator and stuff
 })
+
