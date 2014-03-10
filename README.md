@@ -19,7 +19,7 @@ So white spaces cannot be in the middle of statements unless for concatenation
 ```
 Min:                                                        Javascript:
 $str="hello" "world"                                        var str = "hello" + "world"
-`str                                                        console.log(str)
+'str                                                        console.log(str)
 ```
   
 
@@ -35,7 +35,7 @@ Min:                                                        Javascript:
 ```
 Min:                                                        Javascript:
 _add2(num)                                                  function add2(num) {
-    'num+2                                                      return num+2
+    `num+2                                                      return num+2
                                                             }
 ```
 
@@ -57,11 +57,11 @@ Also, dynamic whitespacing is used for blocks instead of braces
 ```
 Min:                                                        Javascript:
 ?a>b                                                        if (a < b) {  
-    `"hello world"                                          console.log("hello world");  
+    '"hello world"                                          console.log("hello world");  
 :?a~b                                                       } else if (a == b) { 
-    `"Googbye world"                                        console.log("Goodbye world"); 
+    '"Googbye world"                                        console.log("Goodbye world"); 
 :                                                           } else 
-    `"the world" " does not exist"                          console.log("the world" + " does not exist");
+    '"the world" " does not exist"                          console.log("the world" + " does not exist");
                                                             }
 ``` 
 
@@ -70,7 +70,7 @@ Min:                                                        Javascript:
 ```
 Min:                                                        Javascript:
 %#i=0,i<5,i+=1                                              for(var i = 0; i < 5; i++) {
-    `"hello 5 times"                                             console.log("hello 5 times"); 
+    '"hello 5 times"                                             console.log("hello 5 times"); 
                                                             }
 ``` 
 
@@ -118,6 +118,7 @@ keysymbol       ->  '?' |     //if
                     '_' |     //function 
                     ';' |     //class
                     '`' |     //return 
+                    '\'' |    //print 
             
 identifier      ->  [a-zA-Z][a-zA-Z0-9]*  
 
