@@ -40,7 +40,7 @@ function scan(line, linenumber, tokens, indentStack) {
         emit = function(kind, lexeme) {
             tokens.push({kind: kind, lexeme: lexeme || kind, line: linenumber, col: start+1})
         },
-        loop = false,
+        block = false,
         numTabs, i
 
     while (true) {
@@ -71,16 +71,17 @@ function scan(line, linenumber, tokens, indentStack) {
         // Nothing left on the line
         if (pos >= line.length) {
             start++
-            (loop) ? emit("LOOP") : emit("NEWLINE")
-            loop = false
+            (block) ? emit("BLOCK") : emit("NEWLINE")
+            block = false
             break
         }
 
         start = pos
         
         // Two-character tokens
-        if (/<~|>~|'~|\+=|-=|\*=|\/=/.test(line.substring(pos, pos+2))) {
+        if (/<~|>~|'~|\+=|-=|\*=|\/=|:\?/.test(line.substring(pos, pos+2))) {
             emit(line.substring(pos, pos+2))
+            if (/:\?/.test(line[pos])) block = true
             pos += 2
 
 
@@ -88,7 +89,7 @@ function scan(line, linenumber, tokens, indentStack) {
         // One-char operator [*^\-+\/!&|\s<>=]
         // Reserved chars [?:%@`]
         } else if (/[#$_;*\^\-+\/!&|\s<>=?:%@\`,()\[\]\{\}~\']/.test(line[pos])) {
-            if (/[@%]/.test(line[pos])) loop = true
+            if (/[@%:?]/.test(line[pos])) block = true
             emit(line[pos++])
 
         // String literals 

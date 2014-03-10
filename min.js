@@ -11,8 +11,8 @@ var argv = require('optimist')
   .argv
 
 var scan = require('./scanner')
+var parse = require('./parser')
 // TODO
-// var parse = require('./parser')
 // var generate = require('./generator')(argv.target)
 var error = require('./error')
 
@@ -22,7 +22,12 @@ scan(argv._[0], function (tokens) {
     tokens.forEach(function (t) {console.log(t)})
     return
   }
-  //var program = parse(tokens)
+  var program = parse(tokens)
+  if (error.count > 0) return;
+  if (argv.a) {
+    console.log(program.toString())
+    return
+  }
   //if (error.count > 0) return;
   //TODO generator and stuff
 })
