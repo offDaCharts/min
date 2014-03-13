@@ -57,8 +57,8 @@ function parseDeclaration() {
   var decType = match().kind
   match('ID')
   match('=')
-  //if (decType==='#') match('NUMLIT')
-  //if (decType==='$') match('STRLIT')
+  if (decType==='#') match('NUMLIT')
+  if (decType==='$') match('STRLIT')
   //TODO function decs and class decs
 }
 
