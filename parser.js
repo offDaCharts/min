@@ -33,14 +33,14 @@ function parseBlock() {
     match('NEWLINE')
   } while (at(['?',':','\'','`','@','%',':?','_',';','#','$']))
   
-  if (at(['DEDENT', 'EOF')) { //DEDENT or eof expected to end a block
-    if at('DEDENT') match('DEDENT')
-    return new Block(statements)
+  if (at(['DEDENT', 'EOF'])) { //DEDENT or eof expected to end a block
+    if (at('DEDENT')) match('DEDENT')
+    return //new Block(statements)
   }
 }
 
 function parseStatement() {
-  if (at(['#', '$', ';', '_')) {
+  if (at(['#', '$', ';', '_'])) {
     return parseDeclaration()
   } else if (at(['?',':',':?'])) {
     return parseConditional()
@@ -54,7 +54,12 @@ function parseStatement() {
 }
 
 function parseDeclaration() {
-  return
+  var decType = match().kind
+  match('ID')
+  match('=')
+  //if (decType==='#') match('NUMLIT')
+  //if (decType==='$') match('STRLIT')
+  //TODO function decs and class decs
 }
 
 function parseConditional() {

@@ -24,10 +24,10 @@ scan(argv._[0], function (tokens) {
   }
   var program = parse(tokens)
   if (error.count > 0) return;
-  if (argv.a) {
-    console.log(program.toString())
-    return
-  }
+  // if (argv.a) {
+  //   console.log(program.toString())
+  //   return
+  // }
   //if (error.count > 0) return;
   //TODO generator and stuff
 })
