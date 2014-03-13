@@ -57,8 +57,11 @@ function parseDeclaration() {
   var decType = match().kind
   match('ID')
   match('=')
-  if (decType==='#') match('NUMLIT')
-  if (decType==='$') match('STRLIT')
+  if (decType==='#') {
+    parseNumber()
+  } else if (decType==='$') {
+    parseString()
+  }
   //TODO function decs and class decs
 }
 
@@ -71,15 +74,21 @@ function parseLoop() {
 }
 
 function parsePrint() {
-  return
+  match('\'')
+  parseString()
 }
 
 function parseReturn() {
   return
 }
 
+function parseNumber() {
+  match('NUMLIT') //TODO also accept expressions
+}
 
-
+function parseString() {
+  match('STRLIT') //TODO account for string concatenation
+}
 
 function at(symbol) {
   if (tokens.length === 0) {

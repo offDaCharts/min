@@ -8,7 +8,7 @@ describe('The scanner', function () {
   it('correctly tokenizes hello world program', function (done) {
     scan('test/data/workingPrograms/helloWorld.min', function (tokens) {
       tokens.length.should.equal(4)
-      i(tokens[0]).should.equal(i({kind:'`',lexeme:'`',line:1,col:1}))
+      i(tokens[0]).should.equal(i({kind:'\'',lexeme:'\'',line:1,col:1}))
       i(tokens[1]).should.equal(i({kind:'STRLIT',lexeme:'"Hello World"',line:1,col:2}))
       i(tokens[2]).should.equal(i({ kind: 'NEWLINE', lexeme: 'NEWLINE', line: 1, col: 3 }))
       i(tokens[3]).should.equal(i({kind:'EOF',lexeme:'EOF'}))
@@ -116,7 +116,7 @@ describe('The scanner', function () {
       i(tokens[3]).should.equal(i({ kind: 'ID', lexeme: 'b', line: 1, col: 4 }))
       i(tokens[4]).should.equal(i({ kind: 'BLOCK', lexeme: 'BLOCK', line: 1, col: 5 }))
       i(tokens[5]).should.equal(i({ kind: 'INDENT', lexeme: 'INDENT', line: 2, col: 1 }))
-      i(tokens[6]).should.equal(i({ kind: '`', lexeme: '`', line: 2, col: 5 }))
+      i(tokens[6]).should.equal(i({ kind: '\'', lexeme: '\'', line: 2, col: 5 }))
       i(tokens[7]).should.equal(i({ kind: 'STRLIT', lexeme: '"hello world"', line: 2, col: 6 }))
       i(tokens[8]).should.equal(i({ kind: 'NEWLINE', lexeme: 'NEWLINE', line: 2, col: 7 }))
       i(tokens[9]).should.equal(i({ kind: 'DEDENT', lexeme: 'DEDENT', line: 3, col: 1 }))
@@ -138,7 +138,7 @@ describe('The scanner', function () {
       i(tokens[25]).should.equal(i({ kind: 'NUMLIT', lexeme: '1', line: 4, col: 18 }))
       i(tokens[26]).should.equal(i({ kind: 'BLOCK', lexeme: 'BLOCK', line: 4, col: 19 }))
       i(tokens[27]).should.equal(i({ kind: 'INDENT', lexeme: 'INDENT', line: 5, col: 1 }))
-      i(tokens[28]).should.equal(i({ kind: '`', lexeme: '`', line: 5, col: 9 }))
+      i(tokens[28]).should.equal(i({ kind: '\'', lexeme: '\'', line: 5, col: 9 }))
       i(tokens[29]).should.equal(i({ kind: 'STRLIT', lexeme: '"hello 5 times"', line: 5, col: 10 }))
       i(tokens[30]).should.equal(i({ kind: 'NEWLINE', lexeme: 'NEWLINE', line: 5, col: 11 }))
       i(tokens[31]).should.equal(i({ kind: 'DEDENT', lexeme: 'DEDENT' }))

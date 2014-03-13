@@ -1,5 +1,5 @@
 ?a>b
-    `"hello world"
+    '"hello world"
 :
     %#i=0,i<5,i+=1
-        `"hello 5 times"
+        '"hello 5 times"
