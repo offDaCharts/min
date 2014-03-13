@@ -32,8 +32,48 @@ function parseBlock() {
     statements.push(parseStatement())
     match('NEWLINE')
   } while (at(['?',':','\'','`','@','%',':?','_',';','#','$']))
-  return new Block(statements)
+  
+  if (at(['DEDENT', 'EOF')) { //DEDENT or eof expected to end a block
+    if at('DEDENT') match('DEDENT')
+    return new Block(statements)
+  }
 }
+
+function parseStatement() {
+  if (at(['#', '$', ';', '_')) {
+    return parseDeclaration()
+  } else if (at(['?',':',':?'])) {
+    return parseConditional()
+  } else if (at(['@','%'])) {
+    return parseLoop()
+  } else if (at(['\''])) {
+    return parsePrint()
+  } else if (at(['`'])) {
+    return parseReturn()
+  }
+}
+
+function parseDeclaration() {
+  return
+}
+
+function parseConditional() {
+  return
+}
+
+function parseLoop() {
+  return
+}
+
+function parsePrint() {
+  return
+}
+
+function parseReturn() {
+  return
+}
+
+
 
 
 function at(symbol) {
