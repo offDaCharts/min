@@ -14,4 +14,12 @@ describe('The parser', function () {
     })
   })
 
+  it('correctly checks syntax of print statements', function (done) {
+    scan('test/data/workingPrograms/helloWorld.min', function (tokens) {
+      parse(tokens)
+      error.count.should.equal(0)
+      done()
+    })
+  })
+
 });
