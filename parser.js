@@ -27,7 +27,6 @@ function parseProgram() {
 function parseBlock() {
   var statements = []
   while (at(['?',':','\'','`','@','%',':?','_',';','#','$'])) {
-    console.log(tokens[0].kind)
     statements.push(parseStatement())
     at('DEDENT') ? match('DEDENT') : match('NEWLINE')
   }
@@ -113,7 +112,9 @@ function parsePrint() {
 }
 
 function parseReturn() {
-  return
+  match('`')
+  var returnValue = match('ID').kind
+  //return new ReturnStatement(returnValue)
 }
 
 function parseNumber() {
