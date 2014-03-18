@@ -22,4 +22,13 @@ describe('The parser', function () {
     })
   })
 
+  it('correctly checks syntax of loop/block statements', function (done) {
+    scan('test/data/workingPrograms/indentedBlocks.min', function (tokens) {
+      parse(tokens)
+      error.count.should.equal(0)
+      done()
+    })
+  })
+
+
 });
