@@ -10,6 +10,20 @@ var scanner = require('./scanner')
 var error = require('./error')
 
 var Program = require('./entities/program')
+var Block = require('./entities/block')
+var Type = require('./entities/type')
+var VariableDeclaration = require('./entities/variableDeclaration')
+var VariableReference = require('./entities/variableReference')
+var AssignmentStatement = require('./entities/assignmentStatement')
+var ConditionalStatement = require('./entities/conditionalStatement')
+var ForStatement = require('./entities/forStatement')
+var WhileStatement = require('./entities/whileStatement')
+var ReturnStatement = require('./entities/returnStatement')
+var BinaryExpression = require('./entities/binaryExpression')
+var UnaryExpression = require('./entities/unaryExpression')
+var IntegerLiteral = require('./entities/integerLiteral')
+var StringLiteral = require('./entities/stringLiteral')
+var WriteStatement = require('./entities/writeStatement')
 
 var tokens
 
@@ -32,8 +46,7 @@ function parseBlock() {
   }
   
   if (at(['DEDENT', 'EOF'])) { //DEDENT or eof expected to end a block
-    //if (at('DEDENT')) match('DEDENT')
-    return //new Block(statements)
+    return new Block(statements)
   }
 }
 
@@ -52,25 +65,29 @@ function parseStatement() {
 }
 
 function parseDeclaration() {
-  var decType = match().kind
-  match('ID')
+  var decTypeSymbol = match().kind,
+      type = "",
+      id = match('ID'),
+      assignment = ""
   match('=')
-  if (decType==='#') {
-    parseNumber()
-  } else if (decType==='$') {
-    parseString()
+  if (decTypeSymbol==='#') {
+    assignment = parseExpression()
+    type = 'number'
+  } else if (decTypeSymbol==='$') {
+    assignment = parseString()
+    type = 'string'
   }
-  //return new VariableDeclaration(id, type)
+  return new VariableDeclaration(id, type, assignment)
   //TODO function decs and class decs
 }
 
 function parseAssignmentStatement() {
-  //var target = new VariableReference(match('ID'))
-  match('ID')
+  var target = new VariableReference(match('ID')),
+      assignment = '='
   if (at(['=','+=','-=','*=','/=']))
-    match()
+    assignment = match().lexeme
   var source = parseExpression()
-  //return new AssignmentStatement(target, source)
+  return new AssignmentStatement(target, assignment, source)
 }
 
 function parseBody() {
@@ -80,12 +97,21 @@ function parseBody() {
 }
 
 function parseConditional() {
-  var conditional = match().kind
-  if (conditional == '?' || conditional == ':')
+  var conditional = match().kind,
+      elseBody
+  if (conditional == '?')
       condition = parseExpression()
-
   body = parseBody()
-  //return new ConditionalStatement(condition, body)
+  if (at('DEDENT') && tokens[1].kind === ':') {
+    match('DEDENT')
+    elseBody = parseElse()
+  }
+  return new ConditionalStatement(condition, body, elseBody)
+}
+
+function parseElse() {
+  match(':')
+  return parseBody()
 }
 
 function parseLoop() {
@@ -98,36 +124,32 @@ function parseLoop() {
     match(',')
     var assignment = parseAssignmentStatement(),
         body = parseBody()
-    //return new ForStatement(condition, body)
+    return new ForStatement(condition, assignment, body)
   } else { //while
     var condition = parseExpression(),
         body = parseBody()
-    //return new WhileStatement(condition, body)
+    return new WhileStatement(condition, body)
   }  
 }
 
 function parsePrint() {
   match('\'')
-  parseString()
+  
+  return new WriteStatement(parseString())
 }
 
 function parseReturn() {
   match('`')
-  var returnValue = match('ID').kind
-  //return new ReturnStatement(returnValue)
-}
-
-function parseNumber() {
-  match('NUMLIT') //TODO also accept expressions
+  var returnValue = match('ID').lexeme
+  return new ReturnStatement(returnValue)
 }
 
 function parseString() {
-  var left = match('STRLIT')
+  var left = match().lexeme
   while (at(' ')) {
     var op = match()
     var right = parseString()
     left = new StringLiteral(op, left, right)
-
   }
   return left
 }
@@ -137,7 +159,7 @@ function parseExpression() {
   while (at(['|','&'])) {
     var op = match()
     var right = parseExp1()
-    //left = new BinaryExpression(op, left, right)
+    left = new BinaryExpression(op, left, right)
   }
   return left
 }
@@ -147,7 +169,7 @@ function parseExp1() {
   if (at(['~','~>','<~','<','>'])) {
     var op = match()
     var right = parseExp3()
-    //left = new BinaryExpression(op, left, right)
+    left = new BinaryExpression(op, left, right)
   }
   return left
 }
@@ -157,7 +179,7 @@ function parseExp2() {
   while (at(['+','-'])) {
     var op = match()
     var right = parseExp4()
-    //left = new BinaryExpression(op, left, right)
+    left = new BinaryExpression(op, left, right)
   }
   return left
 }
@@ -167,7 +189,7 @@ function parseExp3() {
   while (at(['*','/'])) {
     var op = match()
     var right = parseExp5()
-    //left = new BinaryExpression(op, left, right)
+    left = new BinaryExpression(op, left, right)
   }
   return left
 }
@@ -194,11 +216,9 @@ function parseExp5() {
 
 function parseExp6() {
   if (at('NUMLIT')) {
-      match()
-      //return new IntegerLiteral(match())
+      return new IntegerLiteral(match())
   } else if (at('ID')) {
-      match()
-      //return new VariableReference(match())
+      return new VariableReference(match())
   } else if (at('(')) {
       match()
       var expression = parseExpression()
