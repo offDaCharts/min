@@ -53,17 +53,23 @@ EXP1   -> (":=" EXP) | ''
 EXP2   -> '+' EXP3 | '*' EXP2
 EXP3   -> '(' EXP ')' | ID
 
+EXP    -> TERM
+EXP    -> ID := EXP
+EXP    -> EXP + TERM
+TERM   -> FACTOR
+
+
 
 3.
 Write an attribute grammar for the grammar in the previous problem. Your attribute grammar should describe the "obvious" run-time semantics.
 
-EXP    -> ID EXP1 EXP2        |  [EXP.value = ID.value and EXP1.value and EXP2.value]
+EXP    -> ID EXP1 EXP2        |  [EXP.value = ID.value EXP1.value EXP2.operator(EXP1 EXP2.value]
 EXP    -> '(' EXP ')' EXP2    |  [EXP.value = ]
 EXP1   -> (":=" EXP) | ''     |  [EXP1.value = EXP1.value + EXP3.value]
 EXP2   -> '+' EXP3            |  [EXP2.value = ]
-EXP2   -> '*' EXP2            |
-EXP3   -> ID                  |
-EXP3   -> '(' EXP ')'         |
+EXP2   -> '*' EXP2            |  []
+EXP3   -> ID                  |  
+EXP3   -> '(' EXP ')'         |  [EXP3.text = ]
 
 
 4.
@@ -82,8 +88,9 @@ term   -> IntLit var       |  [term.value = IntLit.value * var.value]
 term   -> '-' IntLit var   |  [term.value = -1 * IntLit.value + var.value]
 term   -> var              |  [term.value = var.value]
 var    -> 'x'              |  [var.value = x]
-var    -> 'x^' IntLit      |  [var.value = x^IntLit]
-
+var    -> 'x^' IntLit      |  [var.value = x^IntLit.value]
+IntLit -> IntLit \D        |  [IntLit.value = IntLit*10+\D.value]
+IntLit -> \D               |  [IntLit.value = \D.value]
 
 5.
 Write a command-line application in Ruby, Clojure, JavaScript, or Python that evaluates polynomials from the language you defined above. The first argument should be the polynomial and the second is the value at which to evaluate the polynomial. Here are some example runs:
