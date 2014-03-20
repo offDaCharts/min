@@ -1,0 +1,103 @@
+1. Here's a grammar:
+S -> A M
+M -> S?
+A -> 'a' E | 'b' A A
+E -> ('a' B | 'b' A)?
+B -> 'b' E | 'a' B B
+a) Describe language of grammar in english
+Consists of a's and b's
+Can contain any number of a's with out b's
+If there are b's in the string, there must be some a's
+
+
+b) Draw a parse tree for string "abaa"
+            S
+         /     \
+        A       M
+      /  \       \
+     a    E       S
+                /     \
+               A        M
+           /   |   \         
+          b    A    A  
+              / \   / \
+             a  E   a  E 
+
+c) This grammar is not LL(1) because in parsing a string like ab..., after the first a, if cannot be known whether the b indicates S->AM->aEM->abAM or S->AM->aEM->aM->aS->aAM->abAAM
+
+d) This grammar is ambiguous because the string abaa can be parsed as in the tree from part b or as shown below:
+            S
+        /       \
+      A          M
+     /  \          \
+    a   E            S
+      /  \          /   \
+      b   A         A    M
+         / \       /  \         
+        a   E     a    E
+Therefore because there are at leasts 2 different ways to parse a string, the grammar is ambiguous.
+                  
+
+2. Here's a grammar that's trying to capture the usual expressions, terms, and factors, while considering assignment to be an expression.
+EXP         -> ID ":=" EXP | TERM TERM_TAIL
+TERM_TAIL   -> ("+" TERM TERM_TAIL)?
+TERM        -> FACTOR FACTOR_TAIL
+FACTOR_TAIL -> ("*" FACTOR FACTOR_TAIL)?
+FACTOR      -> "(" EXP ")" | ID
+a. Prove grammar is not LL(1)
+For the string ID:=ID... there is no way to determine if the indicates EXP->ID:= EXP->ID:= TERM->ID:= FACTOR FACTOR_TAIL->ID:=ID FACTOR_TAIL or EXP->ID:=EXP->ID:=ID:=EXP
+
+b. Rewrite it so that it is LL(1).
+EXP    -> ID EXP1 EXP2 | '(' EXP ')' EXP2
+EXP1   -> (":=" EXP) | ''
+EXP2   -> '+' EXP3 | '*' EXP2
+EXP3   -> '(' EXP ')' | ID
+
+
+3.
+Write an attribute grammar for the grammar in the previous problem. Your attribute grammar should describe the "obvious" run-time semantics.
+
+
+
+4.
+Write an attribute grammar for evaluation (using the notation introduced in this class), whose underlying grammar is amenable to LL(1) parsing, for polynomials whose sole variable is x and for which all coefficients are integers, and all exponents are non-negative integers. The following strings must be accepted.
+2x
+2x^3+7x+5
+3x^8-x+x^2
+3x-x^3+2
+-9x^5-0+4x^100
+-3x^1+8x^0
+  
+
+exp    -> exp '+' term     |  [exp.value = exp.value + term.value]
+exp    -> exp '-' term     |  [exp.value = exp.value - term.value]
+exp    -> term             |  [exp.value = term.value]
+term   -> IntLit var       |  [term.value = IntLit.value * var.value]
+term   -> '-' IntLit var   |  [term.value = -1 * IntLit.value + var.value]
+term   -> var              |  [term.value = var.value]
+var    -> 'x'              |  [var.value = x]
+var    -> 'x^' IntLit      |  [var.value = x^IntLit]
+
+
+5.
+Write a command-line application in Ruby, Clojure, JavaScript, or Python that evaluates polynomials from the language you defined above. The first argument should be the polynomial and the second is the value at which to evaluate the polynomial. Here are some example runs:
+$ ruby evalpoly.rb "2x" 10
+    20.000000
+$ ruby evalpoly.rb "2x^3+7x+5" 2
+    35.000000
+$ ruby evalpoly.rb "3x^8-x+x^2" 1
+    3.000000
+$ ruby evalpoly.rb "3x-x^3+2" 0
+    2.000000
+Note that for this problem it is not necessary for you to build a seriously structured project with separate modules for scanning, parsing, error handling, abstract syntax tree construction and evaluation. Instead, make a very short and sweet script. There are no spaces in the polynomial strings so lexical analysis is no big deal; just bang out the code as a simple script.
+
+See script
+
+
+
+
+
+
+
+
+
