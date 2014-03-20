@@ -78,7 +78,6 @@ function parseDeclaration() {
     type = 'string'
   }
   return new VariableDeclaration(id, type, assignment)
-  //TODO function decs and class decs
 }
 
 function parseAssignmentStatement() {

@@ -57,6 +57,13 @@ EXP3   -> '(' EXP ')' | ID
 3.
 Write an attribute grammar for the grammar in the previous problem. Your attribute grammar should describe the "obvious" run-time semantics.
 
+EXP    -> ID EXP1 EXP2        |  [EXP.value = ID.value and EXP1.value and EXP2.value]
+EXP    -> '(' EXP ')' EXP2    |  [EXP.value = ]
+EXP1   -> (":=" EXP) | ''     |  [EXP1.value = EXP1.value + EXP3.value]
+EXP2   -> '+' EXP3            |  [EXP2.value = ]
+EXP2   -> '*' EXP2            |
+EXP3   -> ID                  |
+EXP3   -> '(' EXP ')'         |
 
 
 4.
@@ -68,7 +75,6 @@ Write an attribute grammar for evaluation (using the notation introduced in this
 -9x^5-0+4x^100
 -3x^1+8x^0
   
-
 exp    -> exp '+' term     |  [exp.value = exp.value + term.value]
 exp    -> exp '-' term     |  [exp.value = exp.value - term.value]
 exp    -> term             |  [exp.value = term.value]
