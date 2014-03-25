@@ -19,32 +19,33 @@ def parseIntLit(poly):
 
 def parseTerm(poly):
     termValue = 1
-    if len(poly) > 0 and poly[0] == '-':
-        termValue = -1 * termValue
-        poly = poly[1:]
-    if len(poly) > 0 and not math.isnan(int(poly[0])):
-        intLit, poly = parseIntLit(poly)
-        termValue = termValue * intLit
-    if len(poly) > 0 and poly[0] == 'x':
-        if len(poly) > 1 and poly[1] == '^':
-            termValue = termValue * x**int(poly[2])
-            poly = poly[3:]
-        else:
-            termValue = termValue * x           
-            poly = poly[1:]
+    while len(poly) > 0 and poly[0] != '+' and poly[0] != '-':
+        # if len(poly) > 0 and poly[0] == '-':
+        #     termValue = -1 * termValue
+        #     poly = poly[1:]
+        if len(poly) > 0 and poly[0].isdigit():
+            intLit, poly = parseIntLit(poly)
+            termValue = termValue * intLit
+        if len(poly) > 0 and poly[0] == 'x':
+            if len(poly) > 1 and poly[1] == '^':
+                poly = poly[2:]
+                exp, poly = parseIntLit(poly)
+                termValue = termValue * x**exp
+            else:
+                termValue = termValue * x           
+                poly = poly[1:]
     return [termValue, poly]
 
 
 
 exp, poly = parseTerm(poly)
 
-while len(poly) > 0 and (poly[0] == '+' or poly[0] == '*'):
+while len(poly) > 0 and (poly[0] == '+' or poly[0] == '-'):
     if poly[0] == '+':
         poly = poly[1:]
         term, poly = parseTerm(poly)
         exp  = exp + term
-
-    if len(poly) > 0 and poly[0] == '-':
+    elif len(poly) > 0 and poly[0] == '-':
         poly = poly[1:]
         term, poly = parseTerm(poly)
         exp  = exp - term

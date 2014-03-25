@@ -45,31 +45,26 @@ TERM        -> FACTOR FACTOR_TAIL
 FACTOR_TAIL -> ("*" FACTOR FACTOR_TAIL)?
 FACTOR      -> "(" EXP ")" | ID
 a. Prove grammar is not LL(1)
-For the string ID:=ID... there is no way to determine if the indicates EXP->ID:= EXP->ID:= TERM->ID:= FACTOR FACTOR_TAIL->ID:=ID FACTOR_TAIL or EXP->ID:=EXP->ID:=ID:=EXP
+For the string ID:=IDÉ there is no way to determine if the indicates EXP->ID:= EXP->ID:= TERM->ID:= FACTOR FACTOR_TAIL->ID:=ID FACTOR_TAIL or EXP->ID:=EXP->ID:=ID:=EXP without looking ahead at least 2 tokens.  Therefore it cannot be LL(1)
 
 b. Rewrite it so that it is LL(1).
 EXP    -> ID EXP1 EXP2 | '(' EXP ')' EXP2
 EXP1   -> (":=" EXP) | ''
-EXP2   -> '+' EXP3 | '*' EXP2
+EXP2   -> '+' EXP3 | '*' EXP2 | ''
 EXP3   -> '(' EXP ')' | ID
-
-EXP    -> TERM
-EXP    -> ID := EXP
-EXP    -> EXP + TERM
-TERM   -> FACTOR
-
 
 
 3.
 Write an attribute grammar for the grammar in the previous problem. Your attribute grammar should describe the "obvious" run-time semantics.
 
-EXP    -> ID EXP1 EXP2        |  [EXP.value = ID.value EXP1.value EXP2.operator(EXP1 EXP2.value]
-EXP    -> '(' EXP ')' EXP2    |  [EXP.value = ]
-EXP1   -> (":=" EXP) | ''     |  [EXP1.value = EXP1.value + EXP3.value]
-EXP2   -> '+' EXP3            |  [EXP2.value = ]
-EXP2   -> '*' EXP2            |  []
-EXP3   -> ID                  |  
-EXP3   -> '(' EXP ')'         |  [EXP3.text = ]
+EXP    -> ID EXP1 EXP2        |  [EXP.value = ID.value EXP2.operator((EXP1.operator(ID.value EXP1.value)) EXP2.value]
+EXP    -> '(' EXP` ')' EXP2   |  [EXP.value = EXP2.operator(EXP`.value EXP2.value)]
+EXP1   -> (":=" EXP)          |  [EXP1.value = ":=" EXP3.value]
+EXP1   -> ''                  |  []
+EXP2   -> '+' EXP3            |  [EXP2.value = '+'(EXP2.value EXP3.value)]
+EXP2   -> '*' EXP2            |  [EXP2.value = '*'(EXP2.value EXP3.value)]
+EXP3   -> ID                  |  [EXP3.value = ID.value]
+EXP3   -> '(' EXP ')'         |  [EXP3.value = EXP.value]
 
 
 4.
@@ -105,6 +100,11 @@ $ ruby evalpoly.rb "3x-x^3+2" 0
 Note that for this problem it is not necessary for you to build a seriously structured project with separate modules for scanning, parsing, error handling, abstract syntax tree construction and evaluation. Instead, make a very short and sweet script. There are no spaces in the polynomial strings so lexical analysis is no big deal; just bang out the code as a simple script.
 
 See script
+
+6. Complete the parser for your compiler project, with professional unit tests. You should be able to output a complete abstract syntax tree.
+
+See repo
+
 
 
 
