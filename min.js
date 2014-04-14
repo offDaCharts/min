@@ -28,7 +28,10 @@ scan(argv._[0], function (tokens) {
     console.log(program.toString())
     return
   }
-  //if (error.count > 0) return;
+
+  program.analyze()
+  if (error.count > 0) return;
+  
   //TODO generator and stuff
 })
 
