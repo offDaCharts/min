@@ -6,12 +6,12 @@ var i = require('util').inspect
 
 describe('The analyzer', function () {
 
-  // it('correctly catches undefined variables', function (done) {
-  //   scan('test/data/workingPrograms/indentedBlocks.min', function (tokens) {
-  //     parse(tokens).analyze()
-  //     error.count.should.equal(2)
-  //     done()
-  //   })
-  // })
+  it('correctly analyzes conditionals', function (done) {
+    scan('test/data/workingPrograms/conditional.min', function (tokens) {
+      parse(tokens).analyze()
+      error.count.should.equal(0)
+      done()
+    })
+  })
 });
 
