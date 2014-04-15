@@ -32,8 +32,6 @@ BinaryExpression.prototype.toString = function () {
 }
 
 BinaryExpression.prototype.bothOperandsMustBe = function (type) {
-  console.log(this.left.type)
-  console.log(this.right.type)
   if (type !== this.left.type || type !== this.right.type) {
     error('Operands to "' + this.op.lexeme + '" must both have type ' + type, this.op)
   }

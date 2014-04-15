@@ -74,10 +74,10 @@ function parseDeclaration() {
   match('=')
   if (decTypeSymbol==='#') {
     assignment = parseExpression()
-    type = 'number'
+    type = Type.NUMBER
   } else if (decTypeSymbol==='$') {
     assignment = parseString()
-    type = 'string'
+    type = Type.STRING
   }
   return new VariableDeclaration(id, type, assignment)
 }
