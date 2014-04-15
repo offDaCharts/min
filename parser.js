@@ -21,7 +21,7 @@ var WhileStatement = require('./entities/whileStatement')
 var ReturnStatement = require('./entities/returnStatement')
 var BinaryExpression = require('./entities/binaryExpression')
 var UnaryExpression = require('./entities/unaryExpression')
-var IntegerLiteral = require('./entities/integerLiteral')
+var NumericLiteral = require('./entities/numericLiteral')
 var StringLiteral = require('./entities/stringLiteral')
 var WriteStatement = require('./entities/writeStatement')
 
@@ -217,7 +217,7 @@ function parseExp5() {
 
 function parseExp6() {
   if (at('NUMLIT')) {
-      return new IntegerLiteral(match())
+      return new NumericLiteral(match())
   } else if (at('ID')) {
       return new VariableReference(match())
   } else if (at('(')) {

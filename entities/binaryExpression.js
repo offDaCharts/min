@@ -12,18 +12,18 @@ BinaryExpression.prototype.analyze = function (context) {
   this.right.analyze(context)
   op = this.op.lexeme
   if (/<~?|>~?/.test(op)) {
-    this.bothOperandsMustBe(Type.INT)
-    this.type = Type.INT
+    this.bothOperandsMustBe(Type.NUMBER)
+    this.type = Type.NUMBER
   } else if (/~/.test(op)) {
     this.left.type.mustBeCompatibleWith(this.right.type, 'Operands of "' + op + '" must have same type', this.op)
-    this.type = Type.INT
+    this.type = Type.NUMBER
   } else if (/&|\|/.test(op)) {
-    this.bothOperandsMustBe(Type.INT)
-    this.type = Type.INT
+    this.bothOperandsMustBe(Type.NUMBER)
+    this.type = Type.NUMBER
   } else {
     // All other binary operators are arithmetic
-    this.bothOperandsMustBe(Type.INT)
-    this.type = Type.INT
+    this.bothOperandsMustBe(Type.NUMBER)
+    this.type = Type.NUMBER
   }
 }
 
@@ -32,6 +32,8 @@ BinaryExpression.prototype.toString = function () {
 }
 
 BinaryExpression.prototype.bothOperandsMustBe = function (type) {
+  console.log(this.left.type)
+  console.log(this.right.type)
   if (type !== this.left.type || type !== this.right.type) {
     error('Operands to "' + this.op.lexeme + '" must both have type ' + type, this.op)
   }
