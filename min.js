@@ -30,6 +30,10 @@ scan(argv._[0], function (tokens) {
   }
 
   program.analyze()
+
+  console.log(program.toString() + '\n')
+  program.showSemanticGraph()
+
   if (error.count > 0) return;
   
   //TODO generator and stuff
