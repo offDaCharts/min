@@ -40,7 +40,7 @@ function parseProgram() {
 
 function parseBlock() {
   var statements = []
-  while (at(['?',':','\'','`','@','%',':?','_',';','#','$'])) {
+  while (at(['?',':','\'','`','@','%',':?','_',';','#','$','ID'])) {
     statements.push(parseStatement())
     at('DEDENT') ? match('DEDENT') : match('NEWLINE')
   }
@@ -61,6 +61,8 @@ function parseStatement() {
     return parsePrint()
   } else if (at(['`'])) {
     return parseReturn()
+  } else if (at(['ID'])) {
+    return parseAssignmentStatement()
   }
 }
 
@@ -167,7 +169,7 @@ function parseExp1() {
   var left = parseExp2()
   if (at(['~','~>','<~','<','>'])) {
     var op = match()
-    var right = parseExp3()
+    var right = parseExp2()
     left = new BinaryExpression(op, left, right)
   }
   return left
@@ -177,7 +179,7 @@ function parseExp2() {
   var left = parseExp3()
   while (at(['+','-'])) {
     var op = match()
-    var right = parseExp4()
+    var right = parseExp3()
     left = new BinaryExpression(op, left, right)
   }
   return left
@@ -187,7 +189,7 @@ function parseExp3() {
   var left = parseExp4()
   while (at(['*','/'])) {
     var op = match()
-    var right = parseExp5()
+    var right = parseExp4()
     left = new BinaryExpression(op, left, right)
   }
   return left
