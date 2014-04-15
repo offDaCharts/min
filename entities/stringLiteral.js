@@ -1,13 +1,11 @@
 var Type = require('./type')
 
-function StringLiteral(op, left, right) {
-  this.op  = op
-  this.right = right
-  this.left = left
+function StringLiteral(string) {
+  this.string = string
 }
 
 StringLiteral.prototype.toString = function () {
-  return '(' + this.op.lexeme + ' ' + this.left + ' ' + this.right + ')'
+  return '(' + this.string + ')'
 }
 
 StringLiteral.prototype.analyze = function (context) {

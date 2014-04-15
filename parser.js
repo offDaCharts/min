@@ -145,14 +145,13 @@ function parseReturn() {
   return new ReturnStatement(returnValue)
 }
 
-function parseString() {
+function parseString() { //TODO fix up with concatenation with IDs and such
   var left = match().lexeme
   while (at(' ')) {
-    var op = match()
-    var right = parseString()
-    left = new StringLiteral(op, left, right)
+    match(' ')
+    left += parseString()
   }
-  return left
+  return new StringLiteral(left)
 }
 
 function parseExpression() {
