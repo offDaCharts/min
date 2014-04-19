@@ -12,8 +12,7 @@ var argv = require('optimist')
 
 var scan = require('./scanner')
 var parse = require('./parser')
-// TODO
-// var generate = require('./generator')(argv.target)
+var generate = require('./generator')()
 var error = require('./error')
 
 scan(argv._[0], function (tokens) {
@@ -34,8 +33,9 @@ scan(argv._[0], function (tokens) {
   console.log(program.toString() + '\n')
   program.showSemanticGraph()
 
+  console.log('Error count: ' + error.count)
   if (error.count > 0) return;
   
-  //TODO generator and stuff
+  generate(program)
 })
 
