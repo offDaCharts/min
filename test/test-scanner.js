@@ -205,8 +205,9 @@ describe('The scanner', function () {
   })
 
   it('detects illegal characters', function (done) {
+    var previousErrorCount = error.count
     scan('test/data/errors/test.min', function () {
-      error.count.should.equal(3)
+      error.count.should.equal(previousErrorCount + 3)
       done()
     })
   })
