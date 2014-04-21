@@ -27,7 +27,7 @@ var makeVariable = (function () {
 }())
 
 function gen(e) {
-  console.log("//" + e.constructor.name)
+  //console.log("//" + e.constructor.name)
   return generator[e.constructor.name](e)
 }
 
@@ -72,7 +72,9 @@ var generator = {
     gen(s.body)
     emit('}')
     if (s.elseBody) {
-      emit('else {' + gen(s.elseBody) + '}')
+      emit('else {')
+      gen(s.elseBody)
+      emit('}')
     }
   },  
 
