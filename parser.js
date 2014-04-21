@@ -78,8 +78,20 @@ function parseDeclaration() {
   } else if (decTypeSymbol==='$') {
     assignment = parseString()
     type = Type.STRING
+  } else if (decTypeSymbol==='_') {
+    assignment = parseFunctionDeclaration()
+    type = Type.FUNCTION
   }
   return new VariableDeclaration(id, type, assignment)
+}
+
+function parseFunctionDeclaration() {
+  var parameters = []
+  match('(')
+  while(!at(')')) {
+    parameters.push()
+  }
+
 }
 
 function parseAssignmentStatement() {
