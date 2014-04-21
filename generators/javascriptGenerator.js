@@ -27,6 +27,7 @@ var makeVariable = (function () {
 }())
 
 function gen(e) {
+  console.log("//" + e.constructor.name)
   return generator[e.constructor.name](e)
 }
 
@@ -48,7 +49,7 @@ var generator = {
   },
 
   'VariableDeclaration': function (v) {
-    var initializer = {'int': '0', 'bool': 'false'}[v.type]
+    var initializer = v.assignment.toString() || {'number': '0', 'string': 'false'}[v.type]
     emit(util.format('var %s = %s;', makeVariable(v), initializer))
   },
 
