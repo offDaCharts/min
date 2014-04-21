@@ -69,6 +69,15 @@ var generator = {
     })
   },
 
+  'ConditionalStatement': function (s) {
+    emit('if (' + gen(s.condition) + ') {')
+    gen(s.body)
+    emit('}')
+    if (s.elseBody) {
+      emit('else {' + gen(s.elseBody) + '}')
+    }
+  },  
+
   'WhileStatement': function (s) {
     emit('while (' + gen(s.condition) + ') {')
     gen(s.body)
