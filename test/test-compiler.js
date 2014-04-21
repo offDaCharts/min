@@ -57,4 +57,14 @@ describe('The compiler', function () {
     })
   })
 
+  it('compiles whileLoop.min program without errors', function (done) {
+    scan('test/data/workingPrograms/whileLoop.min', function (tokens) {
+      program = parse(tokens)
+      program.analyze()
+      generate(program)
+      error.count.should.equal(0)
+      done()
+    })
+  })
+
 });
