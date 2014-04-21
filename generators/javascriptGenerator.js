@@ -64,9 +64,7 @@ var generator = {
   },
 
   'WriteStatement': function (s) {
-    s.expressions.forEach(function (e) {
-      emit(util.format('alert(%s);', gen(e)))
-    })
+    emit(util.format('alert(%s);', gen(s.writeValue)))
   },
 
   'ConditionalStatement': function (s) {
@@ -89,6 +87,10 @@ var generator = {
   },
 
   'BooleanLiteral': function (literal) {
+    return literal.toString()
+  },
+
+  'StringLiteral': function (literal) {
     return literal.toString()
   },
 
