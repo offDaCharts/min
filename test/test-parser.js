@@ -30,13 +30,13 @@ describe('The parser', function () {
     })
   })
 
-  it('correctly checks syntax for return statements', function (done) {
-    scan('test/data/workingPrograms/return.min', function (tokens) {
-      parse(tokens)
-      error.count.should.equal(0)
-      done()
-    })
-  })
+  // it('correctly checks syntax for functions', function (done) {
+  //   scan('test/data/workingPrograms/function.min', function (tokens) {
+  //     parse(tokens)
+  //     error.count.should.equal(0)
+  //     done()
+  //   })
+  // })
 
   it('correctly handlings assignments and expressions', function (done) {
     scan('test/data/workingPrograms/someMath.min', function (tokens) {
