@@ -57,12 +57,6 @@ var generator = {
     emit(util.format('%s = %s;', gen(s.target), gen(s.source)))
   },
 
-  'ReadStatement': function (s) {
-    s.varrefs.forEach(function (v) {
-      emit(util.format('%s = prompt();', makeVariable(v.referent)))
-    })
-  },
-
   'WriteStatement': function (s) {
     emit(util.format('alert(%s);', gen(s.writeValue)))
   },
