@@ -9,6 +9,8 @@ Block.prototype.toString = function () {
 Block.prototype.analyze = function (context) {
   var localContext = context.createChildContext()
   this.statements.forEach(function (statement) {
+    console.log("______________")
+    console.log(statement)
     statement.analyze(localContext)
   })
 }

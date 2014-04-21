@@ -11,6 +11,7 @@ ConditionalStatement.prototype.toString = function () {
 ConditionalStatement.prototype.analyze = function (context) {
   this.condition.analyze(context)
   this.body.analyze(context)
+  if (this.elseBody) this.elseBody.analyze(context)
 }
 
 module.exports = ConditionalStatement

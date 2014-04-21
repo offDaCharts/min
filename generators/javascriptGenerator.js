@@ -21,7 +21,11 @@ var makeVariable = (function () {
   var lastId = 0
   var map = new HashMap()
   return function (v) {
+    //console.log("here2- make var")
+    //console.log(v)
+    //console.log(map)
     if (!map.has(v)) map.set(v, ++lastId)
+    //console.log(map)
     return '_v' + map.get(v)
   }
 }())
@@ -50,11 +54,13 @@ var generator = {
 
   'VariableDeclaration': function (v) {
     var initializer = v.assignment.toString() || {'number': '0', 'string': 'false'}[v.type]
+    //console.log("here1- var dec")
+    //console.log(v)
     emit(util.format('var %s = %s;', makeVariable(v), initializer))
   },
 
   'AssignmentStatement': function (s) {
-    emit(util.format('%s = %s;', gen(s.target), gen(s.source)))
+    emit(util.format('%s %s %s', gen(s.target), s.assignment, gen(s.source)))
   },
 
   'WriteStatement': function (s) {
@@ -72,6 +78,18 @@ var generator = {
     }
   },
 
+  'ForStatement': function (s) {
+    emit('for (')
+    indentLevel++
+    gen(s.declaration)
+    emit(gen(s.condition) + ';')
+    gen(s.assignment)
+    indentLevel--
+    emit(') {')
+    gen(s.body)
+    emit('}')
+  },
+
   'WhileStatement': function (s) {
     emit('while (' + gen(s.condition) + ') {')
     gen(s.body)
@@ -87,6 +105,9 @@ var generator = {
   },
 
   'VariableReference': function (v) {
+    //console.log("here- var ref")
+    //console.log(v)
+
     return makeVariable(v.referent)
   },
 
@@ -95,6 +116,8 @@ var generator = {
   },
 
   'BinaryExpression': function (e) {
+    //console.log("here-binary expression")
+    //console.log(e.left)
     return util.format('(%s %s %s)', gen(e.left), makeOp(e.op.lexeme), gen(e.right))
   }
 }

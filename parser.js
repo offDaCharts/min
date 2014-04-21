@@ -125,7 +125,7 @@ function parseLoop() {
     match(',')
     var assignment = parseAssignmentStatement(),
         body = parseBody()
-    return new ForStatement(condition, assignment, body)
+    return new ForStatement(declaration, condition, assignment, body)
   } else { //while
     var condition = parseExpression(),
         body = parseBody()
