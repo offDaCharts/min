@@ -11,7 +11,6 @@ ForStatement.prototype.toString = function () {
 }
 
 ForStatement.prototype.analyze = function (context) {
-  console.log("***************")
   this.declaration.analyze(context)
   this.condition.analyze(context)
   this.assignment.analyze(context)
