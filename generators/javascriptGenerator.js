@@ -76,7 +76,7 @@ var generator = {
       gen(s.elseBody)
       emit('}')
     }
-  },  
+  },
 
   'WhileStatement': function (s) {
     emit('while (' + gen(s.condition) + ') {')
@@ -84,11 +84,7 @@ var generator = {
     emit('}')
   },
 
-  'IntegerLiteral': function (literal) {
-    return literal.toString()
-  },
-
-  'BooleanLiteral': function (literal) {
+  'NumericLiteral': function (literal) {
     return literal.toString()
   },
 
