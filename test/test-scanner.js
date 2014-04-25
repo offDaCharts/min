@@ -176,18 +176,20 @@ describe('The scanner', function () {
 
   it('correctly tokenizes function declaration and call', function (done) {
     scan('test/data/workingPrograms/function.min', function (tokens) {
-      tokens.length.should.equal(24)
+      tokens.length.should.equal(26)
       var index = 0,
           lineNumber = 1
       i(tokens[index++]).should.equal(i({ kind: '_', lexeme: '_', line: lineNumber, col: 1 })) 
       i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'add', line: lineNumber, col: 2 })) 
       i(tokens[index++]).should.equal(i({ kind: '=', lexeme: '=', line: lineNumber, col: 5 })) 
       i(tokens[index++]).should.equal(i({ kind: '(', lexeme: '(', line: lineNumber, col: 6 })) 
-      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'a', line: lineNumber, col: 7 })) 
-      i(tokens[index++]).should.equal(i({ kind: ',', lexeme: ',', line: lineNumber, col: 8 })) 
-      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'b', line: lineNumber, col: 9 })) 
-      i(tokens[index++]).should.equal(i({ kind: ')', lexeme: ')', line: lineNumber, col: 10 })) 
-      i(tokens[index++]).should.equal(i({ kind: 'BLOCK', lexeme: 'BLOCK', line: lineNumber++, col: 11 })) 
+      i(tokens[index++]).should.equal(i({ kind: '#', lexeme: '#', line: lineNumber, col: 7 })) 
+      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'a', line: lineNumber, col: 8 })) 
+      i(tokens[index++]).should.equal(i({ kind: ',', lexeme: ',', line: lineNumber, col: 9 })) 
+      i(tokens[index++]).should.equal(i({ kind: '#', lexeme: '#', line: lineNumber, col: 10 })) 
+      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'b', line: lineNumber, col: 11 })) 
+      i(tokens[index++]).should.equal(i({ kind: ')', lexeme: ')', line: lineNumber, col: 12 })) 
+      i(tokens[index++]).should.equal(i({ kind: 'BLOCK', lexeme: 'BLOCK', line: lineNumber++, col: 13 })) 
       i(tokens[index++]).should.equal(i({ kind: 'INDENT', lexeme: 'INDENT', line: lineNumber, col: 1 })) 
       i(tokens[index++]).should.equal(i({ kind: '`', lexeme: '`', line: lineNumber, col: 5 })) 
       i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'a', line: lineNumber, col: 6 })) 

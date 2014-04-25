@@ -91,8 +91,7 @@ function parseFunctionDeclaration() {
   var parameters = []
   match('(')
   while(!at(')')) {
-
-    parameters.push()
+    parameters.push(parseDeclaration())
   }
 
 }
