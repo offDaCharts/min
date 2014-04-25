@@ -42,7 +42,7 @@ describe('The parser', function () {
   //   })
   // })
 
-  it('correctly handlings assignments and expressions', function (done) {
+  it('correctly handles assignments and expressions', function (done) {
     scan('test/data/workingPrograms/someMath.min', function (tokens) {
       var previousErrorCount = error.count
       parse(tokens)
