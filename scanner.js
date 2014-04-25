@@ -89,7 +89,7 @@ function scan(line, linenumber, tokens, indentStack) {
         // One-char operator [*^\-+\/!&|\s<>=]
         // Reserved chars [?:%@`]
         } else if (/[#$_;*\^\-+\/!&|\s<>=?:%@\`,()\[\]\{\}~\']/.test(line[pos])) {
-            if (/[@%:?]/.test(line[pos])) block = true
+            if (/[@%:?_]/.test(line[pos])) block = true
             emit(line[pos++])
 
         // String literals 

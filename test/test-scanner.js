@@ -35,7 +35,7 @@ describe('The scanner', function () {
 
   it('declares variables and skips empty lines', function (done) {
     scan('test/data/workingPrograms/declareVars.min', function (tokens) {
-      tokens.length.should.equal(16)
+      tokens.length.should.equal(19)
       var index = 0,
           lineNumber = 1
       i(tokens[index++]).should.equal(i({kind:'#',lexeme:'#',line: lineNumber,col:1}))
@@ -54,6 +54,9 @@ describe('The scanner', function () {
       i(tokens[index++]).should.equal(i({kind:'=',lexeme:'=',line: lineNumber,col:3}))
       i(tokens[index++]).should.equal(i({kind:'STRLIT',lexeme:'"string"',line: lineNumber,col:4}))
       i(tokens[index++]).should.equal(i({kind:'NEWLINE',lexeme:'NEWLINE', line: lineNumber++,col:5}))
+      i(tokens[index++]).should.equal(i({kind:'#',lexeme:'#',line: lineNumber,col:1}))
+      i(tokens[index++]).should.equal(i({kind:'ID',lexeme:'a',line: lineNumber,col:2}))
+      i(tokens[index++]).should.equal(i({kind:'NEWLINE',lexeme:'NEWLINE', line: lineNumber++,col:3}))
       i(tokens[index++]).should.equal(i({kind:'EOF',lexeme:'EOF'}))
       done()
     })
@@ -178,13 +181,13 @@ describe('The scanner', function () {
           lineNumber = 1
       i(tokens[index++]).should.equal(i({ kind: '_', lexeme: '_', line: lineNumber, col: 1 })) 
       i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'add', line: lineNumber, col: 2 })) 
-      i(tokens[index++]).should.equal(i({ kind: '(', lexeme: '(', line: lineNumber, col: 5 })) 
-      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'a', line: lineNumber, col: 6 })) 
-      i(tokens[index++]).should.equal(i({ kind: ',', lexeme: ',', line: lineNumber, col: 7 })) 
-      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'b', line: lineNumber, col: 8 })) 
-      i(tokens[index++]).should.equal(i({ kind: ')', lexeme: ')', line: lineNumber, col: 9 })) 
-      i(tokens[index++]).should.equal(i({ kind: '=', lexeme: '=', line: lineNumber, col: 10 })) 
-      i(tokens[index++]).should.equal(i({ kind: 'NEWLINE', lexeme: 'NEWLINE', line: lineNumber++, col: 11 })) 
+      i(tokens[index++]).should.equal(i({ kind: '=', lexeme: '=', line: lineNumber, col: 5 })) 
+      i(tokens[index++]).should.equal(i({ kind: '(', lexeme: '(', line: lineNumber, col: 6 })) 
+      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'a', line: lineNumber, col: 7 })) 
+      i(tokens[index++]).should.equal(i({ kind: ',', lexeme: ',', line: lineNumber, col: 8 })) 
+      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'b', line: lineNumber, col: 9 })) 
+      i(tokens[index++]).should.equal(i({ kind: ')', lexeme: ')', line: lineNumber, col: 10 })) 
+      i(tokens[index++]).should.equal(i({ kind: 'BLOCK', lexeme: 'BLOCK', line: lineNumber++, col: 11 })) 
       i(tokens[index++]).should.equal(i({ kind: 'INDENT', lexeme: 'INDENT', line: lineNumber, col: 1 })) 
       i(tokens[index++]).should.equal(i({ kind: '`', lexeme: '`', line: lineNumber, col: 5 })) 
       i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'a', line: lineNumber, col: 6 })) 

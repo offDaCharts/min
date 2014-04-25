@@ -70,17 +70,19 @@ function parseDeclaration() {
   var decTypeSymbol = match().kind,
       type = "",
       id = match('ID'),
-      assignment = ""
-  match('=')
-  if (decTypeSymbol==='#') {
-    assignment = parseExpression()
-    type = Type.NUMBER
-  } else if (decTypeSymbol==='$') {
-    assignment = parseString()
-    type = Type.STRING
-  } else if (decTypeSymbol==='_') {
-    assignment = parseFunctionDeclaration()
-    type = Type.FUNCTION
+      assignment = new AssignmentStatement(id, null, null)
+  if(at('=')) {
+      match('=')
+      if (decTypeSymbol==='#') {
+        assignment = parseExpression()
+        type = Type.NUMBER
+      } else if (decTypeSymbol==='$') {
+        assignment = parseString()
+        type = Type.STRING
+      } else if (decTypeSymbol==='_') {
+        assignment = parseFunctionDeclaration()
+        type = Type.FUNCTION
+      }
   }
   return new VariableDeclaration(id, type, assignment)
 }
@@ -89,6 +91,7 @@ function parseFunctionDeclaration() {
   var parameters = []
   match('(')
   while(!at(')')) {
+
     parameters.push()
   }
 

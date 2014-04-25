@@ -33,14 +33,14 @@ describe('The parser', function () {
     })
   })
 
-  it('correctly checks syntax for functions', function (done) {
-    scan('test/data/workingPrograms/function.min', function (tokens) {
-      var previousErrorCount = error.count
-      parse(tokens)
-      error.count.should.equal(previousErrorCount)
-      done()
-    })
-  })
+  // it('correctly checks syntax for functions', function (done) {
+  //   scan('test/data/workingPrograms/function.min', function (tokens) {
+  //     var previousErrorCount = error.count
+  //     parse(tokens)
+  //     error.count.should.equal(previousErrorCount)
+  //     done()
+  //   })
+  // })
 
   it('correctly handlings assignments and expressions', function (done) {
     scan('test/data/workingPrograms/someMath.min', function (tokens) {
