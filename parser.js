@@ -96,12 +96,17 @@ function parseDeclaration() {
 }
 
 function parseFunctionDeclaration() {
-  // var parameters = []
-  // match('(')
-  // while(!at(')')) {
-  //   parameters.push(parseDeclaration())
-  // }
-  // body = parseBody()
+  var parameters = []
+  match('(')
+  while(!at(')')) {
+    if(at(',')) {
+      match(',')
+    }
+    parameters.push(parseDeclaration())
+  }
+  match(')')
+  console.log(parameters)
+  body = parseBody()
   // return new VariableDeclaration(id, type, assignment)
 }
 
@@ -164,7 +169,8 @@ function parsePrint() {
 
 function parseReturn() {
   match('`')
-  var returnValue = match('ID').lexeme
+  //var returnValue = match('ID').lexeme
+  var returnValue = parseExpression()  
   return new ReturnStatement(returnValue)
 }
 
