@@ -61,6 +61,8 @@ function parseStatement() {
     return parsePrint()
   } else if (at(['`'])) {
     return parseReturn()
+  } else if (at(['ID']) && tokens.length > 1 && tokens[1].kind === '(') {
+    return parseFunctionCall()
   } else if (at(['ID'])) {
     return parseAssignmentStatement()
   }
@@ -105,8 +107,21 @@ function parseFunctionDeclaration() {
     parameters.push(parseDeclaration())
   }
   match(')')
-  console.log(parameters)
   body = parseBody()
+  // return new VariableDeclaration(id, type, assignment)
+}
+
+function parseFunctionCall() {
+  var parameters = []
+      id = match('ID')
+  match('(')
+  while(!at(')')) {
+    if(at(',')) {
+      match(',')
+    }
+    parameters.push(parseExpression())
+  }
+  match(')')
   // return new VariableDeclaration(id, type, assignment)
 }
 
