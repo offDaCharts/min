@@ -13,6 +13,7 @@ var Program = require('./entities/program')
 var Block = require('./entities/block')
 var Type = require('./entities/type')
 var VariableDeclaration = require('./entities/variableDeclaration')
+var Function = require('./entities/function')
 var VariableReference = require('./entities/variableReference')
 var AssignmentStatement = require('./entities/assignmentStatement')
 var ConditionalStatement = require('./entities/conditionalStatement')
@@ -82,7 +83,7 @@ function parseDeclaration() {
     type = Type.FUNCTION
   }
 
-  assignment = new AssignmentStatement(id, type, "")
+  assignment = null
 
   if(at('=')) {
     match('=')
@@ -91,13 +92,13 @@ function parseDeclaration() {
     } else if (decTypeSymbol==='$') {
       assignment = parseString()
     } else if (decTypeSymbol==='_') {
-      assignment = parseFunctionDeclaration()
+      assignment = parseFunction()
     }
   }
   return new VariableDeclaration(id, type, assignment)
 }
 
-function parseFunctionDeclaration() {
+function parseFunction() {
   var parameters = []
   match('(')
   while(!at(')')) {
@@ -108,7 +109,7 @@ function parseFunctionDeclaration() {
   }
   match(')')
   body = parseBody()
-  // return new VariableDeclaration(id, type, assignment)
+  return new Function(parameters, body)
 }
 
 function parseFunctionCall() {

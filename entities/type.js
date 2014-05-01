@@ -13,7 +13,7 @@ Type.prototype.toString = function () {
 
 exports.STRING = Type.STRING = new Type('string')
 exports.NUMBER = Type.NUMBER = new Type('number')
-exports.NUMBER = Type.FUNCTION = new Type('function')
+exports.FUNCTION = Type.FUNCTION = new Type('function')
 exports.forName = function (name) {return cache[name]}
 
 Type.prototype.mustBeNumber = function (message, location) {
