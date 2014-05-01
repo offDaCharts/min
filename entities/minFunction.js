@@ -1,16 +1,15 @@
-function Function(parameters, body) {
+function MinFunction(parameters, body) {
   this.parameters = parameters
   this.body = body
 }
 
-Function.prototype.toString = function () {
-  console.log(this.parameters)
+MinFunction.prototype.toString = function () {
   return '(' + this.parameters.join(',') + ')' + this.body + ')'
 }
 
-Function.prototype.analyze = function (context) {
+MinFunction.prototype.analyze = function (context) {
   //context.variableMustNotBeAlreadyDeclared(this.id)
   //context.addVariable(this.id.lexeme, this)
 }
 
-module.exports = Function
+module.exports = MinFunction

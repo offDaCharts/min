@@ -13,7 +13,7 @@ var Program = require('./entities/program')
 var Block = require('./entities/block')
 var Type = require('./entities/type')
 var VariableDeclaration = require('./entities/variableDeclaration')
-var Function = require('./entities/function')
+var MinFunction = require('./entities/minFunction')
 var VariableReference = require('./entities/variableReference')
 var AssignmentStatement = require('./entities/assignmentStatement')
 var ConditionalStatement = require('./entities/conditionalStatement')
@@ -109,7 +109,7 @@ function parseFunction() {
   }
   match(')')
   body = parseBody()
-  return new Function(parameters, body)
+  return new MinFunction(parameters, body)
 }
 
 function parseFunctionCall() {
