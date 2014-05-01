@@ -14,6 +14,7 @@ var Block = require('./entities/block')
 var Type = require('./entities/type')
 var VariableDeclaration = require('./entities/variableDeclaration')
 var MinFunction = require('./entities/minFunction')
+var FunctionCall = require('./entities/functionCall')
 var VariableReference = require('./entities/variableReference')
 var AssignmentStatement = require('./entities/assignmentStatement')
 var ConditionalStatement = require('./entities/conditionalStatement')
@@ -123,7 +124,7 @@ function parseFunctionCall() {
     parameters.push(parseExpression())
   }
   match(')')
-  // return new VariableDeclaration(id, type, assignment)
+  return new FunctionCall(id, parameters)
 }
 
 function parseAssignmentStatement() {
