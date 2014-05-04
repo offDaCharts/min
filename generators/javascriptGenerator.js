@@ -49,7 +49,10 @@ var generator = {
   },
 
   'VariableDeclaration': function (v) {
-    var initializer = v.assignment.toString() || {'number': '0', 'string': 'false'}[v.type]
+    var initializer
+    if(v.assignment) {
+      initializer = v.assignment.toString() || {'number': '0', 'string': 'false'}[v.type]
+    }
     emit(util.format('var %s = %s;', makeVariable(v), initializer))
   },
 

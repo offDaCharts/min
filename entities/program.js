@@ -32,20 +32,22 @@ Program.prototype.showSemanticGraph = function () {
   }
 
   function rep(e) {
-    if (/undefined|function/.test(typeof e)) {
-      return undefined
-    } else if (/number|string|boolean/.test(typeof e)) {
-      return e
-    } else if (Array.isArray(e)) {
-      return e.map(rep)
-    } else if (e.kind) {
-      return e.lexeme
-    } else {
-      if (!seenEntities.has(e)) {
-        seenEntities.set(e, ++tag)
-        dump(e, tag)
+    if(e !== null) {
+      if (/undefined|function/.test(typeof e)) {
+        return undefined
+      } else if (/number|string|boolean/.test(typeof e)) {
+        return e
+      } else if (Array.isArray(e)) {
+        return e.map(rep)
+      } else if (e.kind) {
+        return e.lexeme
+      } else {
+        if (!seenEntities.has(e)) {
+          seenEntities.set(e, ++tag)
+          dump(e, tag)
+        }
+        return seenEntities.get(e)
       }
-      return seenEntities.get(e)
     }
   }
 
