@@ -50,26 +50,28 @@ var generator = {
 
   'VariableDeclaration': function (v) {
     var initializer
-    if(v.assignment) {
-      initializer = gen(v.assignment)
+    if(v.type.name === 'function' && v.assignment) {
+      emit(util.format('var %s = function(' + 
+        v.assignment.parameters.map(function(param) {return makeVariable(param)}).join(', ') 
+      + ') {', makeVariable(v)))
+      gen(v.assignment.body)
+      emit('}') 
     } else {
-      initializer = {'number': '0', 'string': ''}[v.type.name]
+      if(v.assignment) {
+        initializer = gen(v.assignment)
+      } else {
+        initializer = {'number': '0', 'string': '', 'function': 'null'}[v.type.name]
+      }
+      emit(util.format('var %s = %s;', makeVariable(v), initializer))
     }
-    emit(util.format('var %s = %s;', makeVariable(v), initializer))
   },
 
   'AssignmentStatement': function (s) {
     emit(util.format('%s %s %s', gen(s.target), s.assignment, gen(s.source)))
   },
 
-  'MinFunction': function (s) {
-    var parametersString = s.parameters.map(function(param) {return gen(param)}).join(', ')
-    console.log("here: " + gen(s.parameters[0]))
-    console.log(parametersString)
-    for(key in s) {
-      console.log(key + ":")
-      console.log(s[key])
-    }
+  'ReturnStatement': function (s) {
+    //emit(util.format('return %s', gen(s.target), s.assignment, gen(s.source)))
   },
 
   'WriteStatement': function (s) {
