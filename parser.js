@@ -186,7 +186,6 @@ function parsePrint() {
 
 function parseReturn() {
   match('`')
-  //var returnValue = match('ID').lexeme
   var returnValue = parseExpression()  
   return new ReturnStatement(returnValue)
 }
