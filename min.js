@@ -30,12 +30,13 @@ scan(argv._[0], function (tokens) {
 
   program.analyze()
 
-  console.log(program.toString() + '\n')
-  program.showSemanticGraph()
+  if (argv.i) {
+    program.showSemanticGraph()
+    return
+  }
 
   console.log('Error count: ' + error.count)
   if (error.count > 0) return;
-  
   generate(program)
 })
 
