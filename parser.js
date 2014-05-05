@@ -115,7 +115,7 @@ function parseFunction() {
 
 function parseFunctionCall() {
   var parameters = []
-      id = match('ID')
+      id = new VariableReference(match('ID'))
   match('(')
   while(!at(')')) {
     if(at(',')) {

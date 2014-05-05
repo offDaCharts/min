@@ -27,7 +27,7 @@ var makeVariable = (function () {
 }())
 
 function gen(e) {
-  console.log("//" + e.constructor.name)
+  //console.log("//" + e.constructor.name)
   return generator[e.constructor.name](e)
 }
 
@@ -51,9 +51,9 @@ var generator = {
   'VariableDeclaration': function (v) {
     var initializer
     if(v.type.name === 'function' && v.assignment) {
-      emit(util.format('var %s = function(' + 
-        v.assignment.parameters.map(function(param) {return makeVariable(param)}).join(', ') 
-      + ') {', makeVariable(v)))
+      emit(util.format('var %s = function(%s) {', 
+        makeVariable(v), 
+        v.assignment.parameters.map(function(param) {return makeVariable(param)}).join(', ') ))
       gen(v.assignment.body)
       emit('}') 
     } else {
@@ -76,6 +76,10 @@ var generator = {
 
   'WriteStatement': function (s) {
     emit(util.format('alert(%s);', gen(s.writeValue)))
+  },
+
+  'FunctionCall': function (s) {
+    emit(util.format('%s(%s)', gen(s.id), s.parameters.map(function(param) {return gen(param)}).join(', ') ))
   },
 
   'ConditionalStatement': function (s) {

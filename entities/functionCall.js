@@ -8,8 +8,8 @@ FunctionCall.prototype.toString = function () {
 }
 
 FunctionCall.prototype.analyze = function (context) {
-  //context.variableMustNotBeAlreadyDeclared(this.id)
-  //context.addVariable(this.id.lexeme, this)
+  this.referent = context.lookupVariable(this.id.token)
+  this.type = this.referent.type
 }
 
 module.exports = FunctionCall
