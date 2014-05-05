@@ -8,8 +8,11 @@ MinFunction.prototype.toString = function () {
 }
 
 MinFunction.prototype.analyze = function (context) {
-  //context.variableMustNotBeAlreadyDeclared(this.id)
-  //context.addVariable(this.id.lexeme, this)
+  var localContext = context.createChildContext()
+  this.parameters.forEach(function (parameter) {
+    localContext.addVariable(parameter.id.lexeme, parameter)
+  })
+  this.body.analyze(context)
 }
 
 module.exports = MinFunction

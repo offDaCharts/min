@@ -11,10 +11,11 @@ ForStatement.prototype.toString = function () {
 }
 
 ForStatement.prototype.analyze = function (context) {
-  this.declaration.analyze(context)
-  this.condition.analyze(context)
-  this.assignment.analyze(context)
-  this.body.analyze(context)
+  var localContext = context.createChildContext()
+  this.declaration.analyze(localContext)
+  this.condition.analyze(localContext)
+  this.assignment.analyze(localContext)
+  this.body.analyze(localContext)
 }
 
 module.exports = ForStatement
