@@ -12,7 +12,7 @@ MinFunction.prototype.analyze = function (context) {
   this.parameters.forEach(function (parameter) {
     localContext.addVariable(parameter.id.lexeme, parameter)
   })
-  this.body.analyze(context)
+  this.body.analyze(localContext)
 }
 
 module.exports = MinFunction

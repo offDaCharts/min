@@ -9,7 +9,8 @@ WhileStatement.prototype.toString = function () {
 
 WhileStatement.prototype.analyze = function (context) {
   this.condition.analyze(context)
-  this.body.analyze(context)
+  var localContext = context.createChildContext()
+  this.body.analyze(localContext)
 }
 
 module.exports = WhileStatement
