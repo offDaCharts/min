@@ -4,12 +4,12 @@ function FunctionCall(id, parameters) {
 }
 
 FunctionCall.prototype.toString = function () {
-  return '(Call: ' + id.lexeme + ' (' + this.parameters.join(',') + '))'
+  return '(Call: ' + id.token.lexeme + ' (' + this.parameters.join(',') + '))'
 }
 
 FunctionCall.prototype.analyze = function (context) {
-  this.referent = context.lookupVariable(this.id.token)
-  this.type = this.referent.type
+  this.id.referent = context.lookupVariable(this.id.token)
+  this.id.type = this.id.referent.type
 }
 
 module.exports = FunctionCall
