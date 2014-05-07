@@ -39,17 +39,6 @@ _add2(num)                                                  function add2(num) {
                                                             }
 ```
 
-###Classes
-Classes are declared with the names of the fields that will be part of the class and can be contructed with the name of the class. When classes are created, the name of the class is seperated by a :
-```
-Min:                                                       
-;box                                                        
-    #width
-    #height
-              
-box:b=box(2,3)                                        
-```
-
 
 ###Conditionals
 Why have 2 different ways for if statements? In min, the ? : is used for all is statements  
@@ -116,7 +105,6 @@ keysymbol       ->  '?' |     //if
                     '@' |     //while  
                     ':?'|    //else if  
                     '_' |     //function 
-                    ';' |     //class
                     '`' |     //return 
                     '\'' |    //print 
             
