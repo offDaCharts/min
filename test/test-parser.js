@@ -82,4 +82,17 @@ describe('The parser', function () {
     })
   })
 
+  it('correctly handles parsing conditional statements', function (done) {
+    scan('test/data/workingPrograms/conditional.min', function (tokens) {
+      var previousErrorCount = error.count,
+          program = parse(tokens)
+      program.toString().should.equal(
+        "(Program (Block (Var :a number (= a 3)) (Var :b number (= b 4)) (If (> a b) " + 
+        "(Block (Write (\"hello world\"))) else (Block (Write (\"goodbye world\"))))))"
+      )
+      error.count.should.equal(previousErrorCount)
+      done()
+    })
+  })
+
 });
