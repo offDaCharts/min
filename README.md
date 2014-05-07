@@ -28,7 +28,8 @@ There is only one number type: \#
 ```
 Min:                                                        Javascript:
 #num=3                                                      var num = 3
-#n=2,n=4                                                    var n = 2, n = 4 
+#n=2                                                        var n = 2
+#a                                                          var a
 ```
 
 ###Functions
@@ -37,17 +38,6 @@ Min:                                                        Javascript:
 _add2(num)                                                  function add2(num) {
     `num+2                                                      return num+2
                                                             }
-```
-
-###Classes
-Classes are declared with the names of the fields that will be part of the class and can be contructed with the name of the class. When classes are created, the name of the class is seperated by a :
-```
-Min:                                                       
-;box                                                        
-    #width
-    #height
-              
-box:b=box(2,3)                                        
 ```
 
 
@@ -80,9 +70,8 @@ Min:                                                        Javascript:
 
 ```
 declarations    ->  variableDec |  
-                    functionDec |  
-                    classDec  
-                
+                    functionDec 
+                    
 variableDec     ->  (type)(identifier)(=literal)? |  
                     (type)(identifier'['']')(='['((literal,)*literal)?']')? |  
                     _identifier'('')'  
@@ -116,7 +105,6 @@ keysymbol       ->  '?' |     //if
                     '@' |     //while  
                     ':?'|    //else if  
                     '_' |     //function 
-                    ';' |     //class
                     '`' |     //return 
                     '\'' |    //print 
             
@@ -147,9 +135,7 @@ operator        ->  '*' |
                     '''
              
 type -> '#' |  
-        '$' |  
-        '#[]' |
-        '$[]'
+        '$'
         
 comment -> (comments are a waste of space and have no place in min!)  
 ```
