@@ -55,7 +55,7 @@ function parseBlock() {
 function parseStatement() {
   if (at(['#', '$', ';', '_'])) {
     return parseDeclaration()
-  } else if (at(['?',':',':?'])) {
+  } else if (at(['?',':?'])) {
     return parseConditional()
   } else if (at(['@','%'])) {
     return parseLoop()
@@ -144,13 +144,19 @@ function parseBody() {
 
 function parseConditional() {
   var conditional = match().kind,
-      elseBody
-  if (conditional == '?')
+      elseBody,
+      condition,
+      body
+  if (conditional == '?' || conditional == ':?')
       condition = parseExpression()
   body = parseBody()
   if (at('DEDENT') && tokens[1].kind === ':') {
     match('DEDENT')
     elseBody = parseElse()
+  } else if (at('DEDENT') && tokens[1].kind === ':?') {
+    match('DEDENT')
+    elseBody = new Block([parseStatement()])
+    console.log("here")
   }
   return new ConditionalStatement(condition, body, elseBody)
 }

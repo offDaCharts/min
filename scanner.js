@@ -81,7 +81,7 @@ function scan(line, linenumber, tokens, indentStack) {
         // Two-character tokens
         if (/<~|>~|'~|\+=|-=|\*=|\/=|:\?/.test(line.substring(pos, pos+2))) {
             emit(line.substring(pos, pos+2))
-            if (/:\?/.test(line[pos])) block = true
+            if (/:\?/.test(line.substring(pos, pos+2))) block = true
             pos += 2
 
 
