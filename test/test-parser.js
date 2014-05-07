@@ -70,4 +70,16 @@ describe('The parser', function () {
     })
   })
 
+  it('correctly handles parsing a while loop', function (done) {
+    scan('test/data/workingPrograms/whileLoop.min', function (tokens) {
+      var previousErrorCount = error.count,
+          program = parse(tokens)
+      program.toString().should.equal(
+        "(Program (Block (Var :a number (= a 2)) (While (< a 5) (Block (+= a 1)))))"
+      )
+      error.count.should.equal(previousErrorCount)
+      done()
+    })
+  })
+
 });
