@@ -2,15 +2,19 @@ var util = require('util')
 var HashMap = require('hashmap').HashMap
 
 module.exports = function (program) {
-  gen(program)  
+  programString = ""
+  gen(program) 
+  return programString 
 }
 
 var indentPadding = 4
 var indentLevel = 0
+var programString = ""
 
 function emit(line) {
   var pad = indentPadding * indentLevel
-  console.log(Array(pad+1).join(' ') + line)
+  //console.log(Array(pad+1).join(' ') + line)
+  programString += Array(pad+1).join(' ') + line + '\n'
 }
 
 function makeOp(op) {
