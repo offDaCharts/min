@@ -205,5 +205,43 @@ describe('The analyzer', function () {
     })
   })
 
+  it('correctly handles parsing elseif statements', function (done) {
+    scan('test/data/workingPrograms/ifElse.min', function (tokens) {
+      var previousErrorCount = error.count,
+          program = parse(tokens)
+      program.analyze()
+      program.getSemanticGraph().should.equal(
+        '3 Type {"name":"number"}\n' + 
+        '4 NumericLiteral {"token":"3","type":3}\n' + 
+        '2 VariableDeclaration {"id":"a","type":3,"assignment":4}\n' + 
+        '6 NumericLiteral {"token":"2","type":3}\n' + 
+        '5 VariableDeclaration {"id":"b","type":3,"assignment":6}\n' + 
+        '9 VariableReference {"token":"a","referent":2,"type":3}\n' + 
+        '10 VariableReference {"token":"b","referent":5,"type":3}\n' + 
+        '8 BinaryExpression {"op":">","left":9,"right":10,"type":3}\n' + 
+        '14 Type {"name":"string"}\n' + 
+        '13 StringLiteral {"string":"\\"hello world\\"","type":14}\n' + 
+        '12 WriteStatement {"writeValue":13}\n' + 
+        '11 Block {"statements":[12]}\n' + 
+        '18 VariableReference {"token":"a","referent":2,"type":3}\n' + 
+        '19 VariableReference {"token":"b","referent":5,"type":3}\n' + 
+        '17 BinaryExpression {"op":"~","left":18,"right":19,"type":3}\n' + 
+        '22 StringLiteral {"string":"\\"Goodbye world\\"","type":14}\n' + 
+        '21 WriteStatement {"writeValue":22}\n' + 
+        '20 Block {"statements":[21]}\n' + 
+        '25 StringLiteral {"string":"\\"the world\\"","type":14}\n' + 
+        '24 WriteStatement {"writeValue":25}\n' + 
+        '23 Block {"statements":[24]}\n' + 
+        '16 ConditionalStatement {"condition":17,"body":20,"elseBody":23}\n' + 
+        '15 Block {"statements":[16]}\n' + 
+        '7 ConditionalStatement {"condition":8,"body":11,"elseBody":15}\n' + 
+        '1 Block {"statements":[2,5,7]}\n' + 
+        '0 Program {"block":1}\n'
+      )
+      error.count.should.equal(previousErrorCount)
+      done()
+    })
+  })
+
 });
 

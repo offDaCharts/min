@@ -156,7 +156,6 @@ function parseConditional() {
   } else if (at('DEDENT') && tokens[1].kind === ':?') {
     match('DEDENT')
     elseBody = new Block([parseStatement()])
-    console.log("here")
   }
   return new ConditionalStatement(condition, body, elseBody)
 }

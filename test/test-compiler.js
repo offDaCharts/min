@@ -73,4 +73,15 @@ describe('The compiler', function () {
     })
   })
 
+  it('compiles ifElse.min program without errors', function (done) {
+    var previousErrorCount = error.count
+    scan('test/data/workingPrograms/ifElse.min', function (tokens) {
+      var program = parse(tokens)
+      program.analyze()
+      generate(program)
+      error.count.should.equal(previousErrorCount)
+      done()
+    })
+  })
+
 });

@@ -95,4 +95,18 @@ describe('The parser', function () {
     })
   })
 
+  it('correctly handles parsing else if statements', function (done) {
+    scan('test/data/workingPrograms/ifElse.min', function (tokens) {
+      var previousErrorCount = error.count,
+          program = parse(tokens)
+      program.toString().should.equal(
+        "(Program (Block (Var :a number (= a 3)) (Var :b number (= b 2)) (If (> a b)" + 
+        " (Block (Write (\"hello world\"))) else (Block (If (~ a b) (Block (Write (\"Goodbye world\")))" + 
+        " else (Block (Write (\"the world\"))))))))"
+      )
+      error.count.should.equal(previousErrorCount)
+      done()
+    })
+  })
+
 });
