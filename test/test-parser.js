@@ -33,14 +33,19 @@ describe('The parser', function () {
     })
   })
 
-  // it('correctly checks syntax for functions', function (done) {
-  //   scan('test/data/workingPrograms/function.min', function (tokens) {
-  //     var previousErrorCount = error.count
-  //     parse(tokens)
-  //     error.count.should.equal(previousErrorCount)
-  //     done()
-  //   })
-  // })
+  it('correctly checks syntax for functions', function (done) {
+    scan('test/data/workingPrograms/function.min', function (tokens) {
+      var previousErrorCount = error.count,
+          program = parse(tokens)
+
+      program.toString().should.equal(
+        "(Program (Block (Var :add function (= add ((Var :a number),(Var :b number))" +
+        "(Block (Return (+ a b)))))) (Call: add (3,4))))"
+      )
+      error.count.should.equal(previousErrorCount)
+      done()
+    })
+  })
 
   it('correctly handles assignments and expressions', function (done) {
     scan('test/data/workingPrograms/someMath.min', function (tokens) {
