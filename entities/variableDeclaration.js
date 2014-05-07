@@ -11,7 +11,9 @@ VariableDeclaration.prototype.toString = function () {
 
 VariableDeclaration.prototype.analyze = function (context) {
   context.variableMustNotBeAlreadyDeclared(this.id)
-  this.assignment.analyze(context)
+  if(this.assignment) {
+    this.assignment.analyze(context)
+  }
   context.addVariable(this.id.lexeme, this)
 }
 
