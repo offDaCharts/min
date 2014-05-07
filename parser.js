@@ -226,7 +226,7 @@ function parseExp1() {
 
 function parseExp2() {
   var left = parseExp3()
-  while (at(['+','-'])) {
+  while (at(['+','-', ' '])) {
     var op = match()
     var right = parseExp3()
     left = new BinaryExpression(op, left, right)
@@ -269,6 +269,8 @@ function parseExp6() {
       return new NumericLiteral(match())
   } else if (at('ID')) {
       return new VariableReference(match())
+  } else if (at('STRLIT')) {
+      return new StringLiteral(match())
   } else if (at('(')) {
       match()
       var expression = parseExpression()

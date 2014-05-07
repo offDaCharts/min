@@ -18,7 +18,7 @@ function emit(line) {
 }
 
 function makeOp(op) {
-  return {'&': '&&', '|': '||', '~': '===', '!=': '!=='}[op] || op
+  return {'&': '&&', '|': '||', '~': '===', '!=': '!==', ' ': '+'}[op] || op
 }
 
 var makeVariable = (function () {
