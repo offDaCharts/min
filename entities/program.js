@@ -18,9 +18,10 @@ Program.prototype.optimize = function () {
   return this
 }
 
-Program.prototype.showSemanticGraph = function () {
+Program.prototype.getSemanticGraph = function () {
   var tag = 0
   var seenEntities = new HashMap();
+  var semanticGraph = ""
 
   function dump(e, tag) {
     var props = {}
@@ -28,7 +29,8 @@ Program.prototype.showSemanticGraph = function () {
       var value = rep(e[p])
       if (value !== undefined) props[p] = value
     }
-    console.log("%d %s %j", tag, e.constructor.name, props)
+    //console.log("%d %s %j", tag, e.constructor.name, props)
+    semanticGraph += tag + " " + e.constructor.name + " " + JSON.stringify(props) + "\n"
   }
 
   function rep(e) {
@@ -52,6 +54,11 @@ Program.prototype.showSemanticGraph = function () {
   }
 
   dump(this, 0)
+  return semanticGraph
+}
+
+Program.prototype.showSemanticGraph = function () {
+  console.log(this.getSemanticGraph())
 }
 
 module.exports = Program
