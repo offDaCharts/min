@@ -28,7 +28,8 @@ There is only one number type: \#
 ```
 Min:                                                        Javascript:
 #num=3                                                      var num = 3
-#n=2,n=4                                                    var n = 2, n = 4 
+#n=2                                                        var n = 2
+#a                                                          var a
 ```
 
 ###Functions
@@ -69,9 +70,8 @@ Min:                                                        Javascript:
 
 ```
 declarations    ->  variableDec |  
-                    functionDec |  
-                    classDec  
-                
+                    functionDec 
+                    
 variableDec     ->  (type)(identifier)(=literal)? |  
                     (type)(identifier'['']')(='['((literal,)*literal)?']')? |  
                     _identifier'('')'  
@@ -135,9 +135,7 @@ operator        ->  '*' |
                     '''
              
 type -> '#' |  
-        '$' |  
-        '#[]' |
-        '$[]'
+        '$'
         
 comment -> (comments are a waste of space and have no place in min!)  
 ```
