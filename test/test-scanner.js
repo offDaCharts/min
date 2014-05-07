@@ -209,6 +209,50 @@ describe('The scanner', function () {
     })
   })
 
+  it('correctly tokenizes math operations', function (done) {
+    scan('test/data/workingPrograms/someMath.min', function (tokens) {
+      tokens.length.should.equal(35)
+      var index = 0,
+          lineNumber = 1
+      i(tokens[index++]).should.equal(i({ kind: '#', lexeme: '#', line: lineNumber, col: 1 }))
+      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'num', line: lineNumber, col: 2 }))
+      i(tokens[index++]).should.equal(i({ kind: '=', lexeme: '=', line: lineNumber, col: 5 }))
+      i(tokens[index++]).should.equal(i({ kind: 'NUMLIT', lexeme: '34', line: lineNumber, col: 6 }))
+      i(tokens[index++]).should.equal(i({ kind: 'NEWLINE', lexeme: 'NEWLINE', line: lineNumber++, col: 7 }))
+      i(tokens[index++]).should.equal(i({ kind: '#', lexeme: '#', line: lineNumber, col: 1 }))
+      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'n', line: lineNumber, col: 2 }))
+      i(tokens[index++]).should.equal(i({ kind: '=', lexeme: '=', line: lineNumber, col: 3 }))
+      i(tokens[index++]).should.equal(i({ kind: 'NUMLIT', lexeme: '2', line: lineNumber, col: 4 }))
+      i(tokens[index++]).should.equal(i({ kind: 'NEWLINE', lexeme: 'NEWLINE', line: lineNumber++, col: 5 }))
+      i(tokens[index++]).should.equal(i({ kind: '#', lexeme: '#', line: lineNumber, col: 1 }))
+      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'a', line: lineNumber, col: 2 }))
+      i(tokens[index++]).should.equal(i({ kind: '=', lexeme: '=', line: lineNumber, col: 3 }))
+      i(tokens[index++]).should.equal(i({ kind: 'NUMLIT', lexeme: '0', line: lineNumber, col: 4 }))
+      i(tokens[index++]).should.equal(i({ kind: 'NEWLINE', lexeme: 'NEWLINE', line: lineNumber++, col: 5 }))
+      i(tokens[index++]).should.equal(i({ kind: '#', lexeme: '#', line: lineNumber, col: 1 }))
+      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'b', line: lineNumber, col: 2 }))
+      i(tokens[index++]).should.equal(i({ kind: '=', lexeme: '=', line: lineNumber, col: 3 }))
+      i(tokens[index++]).should.equal(i({ kind: 'NUMLIT', lexeme: '2', line: lineNumber, col: 4 }))
+      i(tokens[index++]).should.equal(i({ kind: 'NEWLINE', lexeme: 'NEWLINE', line: lineNumber++, col: 5 }))
+      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'a', line: lineNumber, col: 1 }))
+      i(tokens[index++]).should.equal(i({ kind: '=', lexeme: '=', line: lineNumber, col: 2 }))
+      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'n', line: lineNumber, col: 3 }))
+      i(tokens[index++]).should.equal(i({ kind: '+', lexeme: '+', line: lineNumber, col: 4 }))
+      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'num', line: lineNumber, col: 5 }))
+      i(tokens[index++]).should.equal(i({ kind: '*', lexeme: '*', line: lineNumber, col: 8 }))
+      i(tokens[index++]).should.equal(i({ kind: 'NUMLIT', lexeme: '2', line: lineNumber, col: 9 }))
+      i(tokens[index++]).should.equal(i({ kind: 'NEWLINE', lexeme: 'NEWLINE', line: lineNumber++, col: 10 }))
+      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'b', line: lineNumber, col: 1 }))
+      i(tokens[index++]).should.equal(i({ kind: '=', lexeme: '=', line: lineNumber, col: 2 }))
+      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'a', line: lineNumber, col: 3 }))
+      i(tokens[index++]).should.equal(i({ kind: '*', lexeme: '*', line: lineNumber, col: 4 }))
+      i(tokens[index++]).should.equal(i({ kind: 'ID', lexeme: 'n', line: lineNumber, col: 5 }))
+      i(tokens[index++]).should.equal(i({ kind: 'NEWLINE', lexeme: 'NEWLINE', line: lineNumber++, col: 6 }))
+      i(tokens[index++]).should.equal(i({ kind: 'EOF', lexeme: 'EOF' })) 
+      done()
+    })
+  })
+
   it('detects illegal characters', function (done) {
     var previousErrorCount = error.count
     scan('test/data/errors/test.min', function () {
