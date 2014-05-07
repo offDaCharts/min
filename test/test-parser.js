@@ -109,4 +109,13 @@ describe('The parser', function () {
     })
   })
 
+  it('correctly catches path analysis error where function does not have a return in all paths', function (done) {
+    scan('test/data/errors/badPathAnalysis.min', function (tokens) {
+      var previousErrorCount = error.count,
+          program = parse(tokens)
+      error.count.should.equal(previousErrorCount + 1)
+      done()
+    })
+  })
+
 });

@@ -6,10 +6,10 @@ function MinFunction(parameters, body) {
             returnFlag = false
 
         for(i in body.statements) {
-            if (body.statements[i].constructor.name = "ReturnStatement") { 
+            if (body.statements[i].constructor.name == "ReturnStatement") { 
                 returnFlag = true
                 break
-            } else if (body.statements[i].constructor.name = "ConditionalStatement") {
+            } else if (body.statements[i].constructor.name == "ConditionalStatement") {
                 conditionals.push(body.statements[i])
             } else if (body.statements[i].body) {
                 if (hasReturnStatment(body.statements[i].body)) {
@@ -19,7 +19,7 @@ function MinFunction(parameters, body) {
             }
         }
 
-        if (returnFlag = false) {
+        if (returnFlag == false) {
             for(i in conditionals) {
                 if (hasReturnStatment(conditionals[i].body) && 
                    (conditionals[i].elseBody && hasReturnStatment(conditionals[i].elseBody))) {
@@ -35,9 +35,9 @@ function MinFunction(parameters, body) {
   this.parameters = parameters
   this.body = body
 
-  // if(!hasReturnStatment(this.body)) {
-  //   error('Function does not have a return statement in all possible paths')
-  // }
+  if(!hasReturnStatment(this.body)) {
+    error('Function does not have a return statement in all possible paths')
+  }
 }
 
 MinFunction.prototype.toString = function () {

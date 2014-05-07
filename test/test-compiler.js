@@ -84,4 +84,15 @@ describe('The compiler', function () {
     })
   })
 
+  it('compiles functionPathAnalysis.min program without errors', function (done) {
+    var previousErrorCount = error.count
+    scan('test/data/workingPrograms/functionPathAnalysis.min', function (tokens) {
+      var program = parse(tokens)
+      program.analyze()
+      generate(program)
+      error.count.should.equal(previousErrorCount)
+      done()
+    })
+  })
+
 });
