@@ -58,12 +58,12 @@ function scan(line, linenumber, tokens, indentStack) {
                     error('Multiple INDENT tokens in 1 line', {line: linenumber, col: pos+1})
                 } else {
                     indentStack.push(numTabs)
-                    emit("INDENT", "INDENT")
+                    emit("INDENT")
                 }
             } else if (numTabs < indentStack[indentStack.length-1]) {
                 while (numTabs < indentStack[indentStack.length-1]) {
                     indentStack.pop()
-                    emit("DEDENT", "DEDENT")
+                    emit("DEDENT")
                 }
             }
         }

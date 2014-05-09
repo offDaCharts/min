@@ -109,6 +109,19 @@ describe('The parser', function () {
     })
   })
 
+  it('correctly handles parsing function with conditionals and finds no path errors', function (done) {
+    scan('test/data/workingPrograms/functionPathAnalysis.min', function (tokens) {
+      var previousErrorCount = error.count,
+          program = parse(tokens)
+      program.toString().should.equal(
+        '(Program (Block (Var :someFuction function (= someFuction ()(Block (If (> 2 3) (Block (Return ("am I"))) ' + 
+        'else (Block (If (~ 2 3) (Block (Return ("returning"))) else (Block (Return ("something?"))))))))))))'
+      )
+      error.count.should.equal(previousErrorCount)
+      done()
+    })
+  })
+
   it('correctly catches path analysis error where function does not have a return in all paths', function (done) {
     scan('test/data/errors/badPathAnalysis.min', function (tokens) {
       var previousErrorCount = error.count,
@@ -117,5 +130,4 @@ describe('The parser', function () {
       done()
     })
   })
-
 });
