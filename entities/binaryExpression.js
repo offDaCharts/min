@@ -37,8 +37,4 @@ BinaryExpression.prototype.bothOperandsMustBe = function (type) {
   }
 }
 
-BinaryExpression.prototype.assertCanBeComparedForEquality = function () {
-
-}
-
 module.exports = BinaryExpression

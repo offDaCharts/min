@@ -30,26 +30,26 @@ var WriteStatement = require('./entities/writeStatement')
 var tokens
 
 module.exports = function (scanner_output) {
-  tokens = scanner_output
-  var program = parseProgram()
-  match('EOF')
-  return program
+    tokens = scanner_output
+    var program = parseProgram()
+    match('EOF')
+    return program
 }
 
 function parseProgram() {
-  return new Program(parseBlock())
+    return new Program(parseBlock())
 }
 
 function parseBlock() {
-  var statements = []
-  while (at(['?',':','\'','`','@','%',':?','_',';','#','$','ID'])) {
-    statements.push(parseStatement())
-    at('DEDENT') ? match('DEDENT') : match('NEWLINE')
-  }
+    var statements = []
+    while (at(['?',':','\'','`','@','%',':?','_',';','#','$','ID'])) {
+        statements.push(parseStatement())
+        at('DEDENT') ? match('DEDENT') : match('NEWLINE')
+    }
   
-  if (at(['DEDENT', 'EOF'])) { //DEDENT or eof expected to end a block
-    return new Block(statements)
-  }
+    if (at(['DEDENT', 'EOF'])) { //DEDENT or eof expected to end a block
+        return new Block(statements)
+    }
 }
 
 function parseStatement() {

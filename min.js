@@ -34,7 +34,6 @@ scan(argv._[0], function (tokens) {
     return
   }
 
-  //console.log('Error count: ' + error.count)
   if (error.count > 0) return;
   console.log(generate(program))
 })
