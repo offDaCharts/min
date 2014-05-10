@@ -8,7 +8,9 @@ Picture: -
 
 #What is it?  
 
-Min is a minimal programming language where most key words and symbols are one symbol. It is statically typed. Programs in min are automatically minified so as to use very little memory. If you want something readable, min is not for you, try manatee instead.
+Min is a minimal programming language where most key words and symbols are one symbol. Programs in min are automatically minified so as to use very little memory. If you want something readable, min is not for you, try manatee instead.
+
+Min is statically typed and uses python inspired dynamic white spacing for blocks.
 
 
 #Examples:
