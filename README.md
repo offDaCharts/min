@@ -76,13 +76,16 @@ variableDec     ->  (type)(identifier)(=literal)? |
                     (type)(identifier'['']')(='['((literal,)*literal)?']')? |  
                     _identifier'('')'  
                 
-functionDec     ->  _identifier\((identifier,)*identifier\) block
+functionDec     ->  _identifier=\((identifier,)*identifier\) block
 
 classDec        ->  ;identifier block
                 
-statements      ->  literal |  
+
+statement      ->  literal |  
                     declaration |   
                     expression |  
+
+forLoop         -> %variableDec,condition,assignment block
               
 expressions     ->  exp([|&]exp)?  
 exp             -> exp1((~|~>|<~|<|>)exp1)?  
