@@ -86,9 +86,9 @@ function scan(line, linenumber, tokens, indentStack) {
 
 
         // One-char declarators [#$_;]
-        // One-char operator [*^\-+\/!&|\s<>=]
+        // One-char operator [*^\-+\/&|\s<>=]
         // Reserved chars [?:%@`]
-        } else if (/[#$_;*\^\-+\/!&|\s<>=?:%@\`,()\[\]\{\}~\']/.test(line[pos])) {
+        } else if (/[#$_;*\^\-+\/&|\s<>=?:%@\`,()\[\]\{\}~\']/.test(line[pos])) {
             if (/[@%:?_]/.test(line[pos])) block = true
             emit(line[pos++])
 
@@ -113,7 +113,7 @@ function scan(line, linenumber, tokens, indentStack) {
 
         // Identifiers
         } else if (/[A-Za-z]/.test(line[pos])) {
-            while (/[^#$_;*\^\-+\/!&|\s<>?:%@=`,()\[\]\{\}~"']/.test(line[pos]) && pos < line.length) pos++
+            while (/[^#$_;*\^\-+\/&|\s<>?:%@=`,()\[\]\{\}~"']/.test(line[pos]) && pos < line.length) pos++
             emit("ID", line.substring(start, pos))
         
         } else {

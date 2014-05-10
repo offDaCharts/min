@@ -53,21 +53,21 @@ function parseBlock() {
 }
 
 function parseStatement() {
-  if (at(['#', '$', ';', '_'])) {
-    return parseDeclaration()
-  } else if (at(['?',':?'])) {
-    return parseConditional()
-  } else if (at(['@','%'])) {
-    return parseLoop()
-  } else if (at(['\''])) {
-    return parsePrint()
-  } else if (at(['`'])) {
-    return parseReturn()
-  } else if (at(['ID']) && tokens.length > 1 && tokens[1].kind === '(') {
-    return parseFunctionCall()
-  } else if (at(['ID'])) {
-    return parseAssignmentStatement()
-  }
+    if (at(['#', '$', ';', '_'])) {
+        return parseDeclaration()
+    } else if (at(['?',':?'])) {
+        return parseConditional()
+    } else if (at(['@','%'])) {
+        return parseLoop()
+    } else if (at(['\''])) {
+        return parsePrint()
+    } else if (at(['`'])) {
+        return parseReturn()
+    } else if (at(['ID']) && tokens.length > 1 && tokens[1].kind === '(') {
+        return parseFunctionCall()
+    } else if (at(['ID'])) {
+        return parseAssignmentStatement()
+    }
 }
 
 function parseDeclaration() {
@@ -255,16 +255,6 @@ function parseExp4() {
 }
 
 function parseExp5() {
-  var left = parseExp6()
-  if (at('!')) {
-    var op = match()
-    return new UnaryExpression(op, left)
-  } else {
-    return left
-  }
-}
-
-function parseExp6() {
   if (at('NUMLIT')) {
       return new NumericLiteral(match())
   } else if (at('ID')) {

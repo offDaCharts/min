@@ -11,14 +11,6 @@ UnaryExpression.prototype.toString = function () {
 
 UnaryExpression.prototype.analyze = function (context) {
   this.operand.analyze(context)
-  // if (this.op.lexeme === 'not') {
-  //   this.operand.type.mustBeBoolean('The "not" operator requires a boolean operand', this.op)
-  //   this.type = Type.BOOL
-  // } else {
-  //   // this.op.lexeme === '-'
-  //   this.operand.type.mustBeNumber('The "negation" operator requires an number operand', this.op)
-  //   this.type = Type.NUMBER
-  // }
 }
 
 module.exports = UnaryExpression
